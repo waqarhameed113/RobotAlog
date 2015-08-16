@@ -32,39 +32,30 @@ namespace RoboSoccer
         Calculation calc;
         PathPlanning path;
         Control control;
+        ObstacleTrejectory motion;
         public int line;
         public FeedBack()
         {
             sock.JoinMulticastGroup(IPAddress.Parse("224.5.23.2"), 50);
              iep =  new IPEndPoint(IPAddress.Any, 0);
             c_radius = new int();
-            BluerobotID = new double[noOfRobot];
-            BluerobotX = new double[noOfRobot];
-            BluerobotY = new double[noOfRobot];
+            BluerobotID = new double[noOfRobot]; BluerobotX = new double[noOfRobot]; BluerobotY = new double[noOfRobot];
             ///////////////////////////////////
-            YellowrobotID = new double[noOfRobot];
-            YellowrobotX = new double[noOfRobot];
-            YellowrobotY = new double[noOfRobot];
+            YellowrobotID = new double[noOfRobot]; YellowrobotX = new double[noOfRobot]; YellowrobotY = new double[noOfRobot];
             ////////////////////////////////////
-            R2R_distance = new double[noOfRobot];
-            speed = new int[noOfRobot];
+            R2R_distance = new double[noOfRobot];   speed = new int[noOfRobot];
             /////////////////////////////////////////
-              BluerobotOrient = new double[noOfRobot];
-            Bluedistance = new double[noOfRobot];
-            Blueangle = new double[noOfRobot];
+              BluerobotOrient = new double[noOfRobot];Bluedistance = new double[noOfRobot]; Blueangle = new double[noOfRobot];
             Blueorient = new double[noOfRobot];
             //////////////////////////////////////////
-            YellowrobotOrient = new double[noOfRobot];
-            Yellowdistance = new double[noOfRobot];
-            Yellowangle = new double[noOfRobot];
+            YellowrobotOrient = new double[noOfRobot]; Yellowdistance = new double[noOfRobot]; Yellowangle = new double[noOfRobot];
             Yelloworient = new double[noOfRobot];
             /////////////////////////////////////////
             calc = new Calculation();
             path = new PathPlanning();
-
             control = new Control();
-
-            
+            motion = new ObstacleTrejectory();
+                        
         }
 public  void getFeedback()
         {
@@ -75,7 +66,7 @@ public  void getFeedback()
                 control.setvalue(ballx, bally, Striker, BluerobotX[Striker], BluerobotY[Striker], BluerobotOrient[Striker], Blueangle[Striker], Bluedistance[Striker], speed[Striker],R2R_distance[Striker]);
                 control.setvalue(ballx, bally, Goalkee, BluerobotX[Goalkee], BluerobotY[Goalkee], BluerobotOrient[Goalkee], Blueangle[Goalkee], Bluedistance[Goalkee], speed[Striker],R2R_distance[Striker]);
                 control.pathDecision();
-assignvalue();
+                assignvalue();
 
             }
             else
@@ -83,6 +74,8 @@ assignvalue();
 
                 control.setvalue(ballx, bally, Striker, YellowrobotX[Striker], YellowrobotY[Striker], YellowrobotOrient[Striker], Yellowangle[Striker], Yellowdistance[Striker], speed[Striker], R2R_distance[Striker]);
                 control.setvalue(ballx, bally, Goalkee, YellowrobotX[Goalkee], YellowrobotY[Goalkee], YellowrobotOrient[Goalkee], Yellowangle[Goalkee], Yellowdistance[Goalkee], speed[Striker], R2R_distance[Striker]);
+                control.pathDecision();
+                assignvalue();
             }
 
         }
@@ -96,7 +89,7 @@ assignvalue();
         }
 
                 
-        /**/
+ 
 
 
 
@@ -140,6 +133,8 @@ assignvalue();
                 line = path.Route;
 
             }
+            motion.PathFinding(bally, ballx, BluerobotY[Striker], BluerobotX[Striker]);
+
             if (pakt.detection.robots_blue.Count>1)
             R2R_distance[Striker] = calc.Distances(BluerobotY[0], BluerobotX[0], BluerobotY[Striker], BluerobotX[Striker]);
             for (int i = 0; i < pakt.detection.robots_yellow.Count; i++)

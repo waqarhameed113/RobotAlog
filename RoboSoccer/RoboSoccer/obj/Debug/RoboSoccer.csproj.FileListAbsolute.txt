@@ -31,3 +31,12 @@ C:\Users\JailBreaker\Desktop\Robosoccer\RoboSoccer - Copy - Copy\RoboSoccer\obj\
 C:\Users\JailBreaker\Desktop\Robosoccer\RoboSoccer - Copy - Copy - Copy\RoboSoccer\bin\Debug\RoboSoccer.exe.config
 C:\Users\JailBreaker\Desktop\Robosoccer\RoboSoccer - Copy - Copy - Copy\RoboSoccer\obj\Debug\RoboSoccer.exe
 C:\Users\JailBreaker\Desktop\Robosoccer\RoboSoccer - Copy - Copy - Copy\RoboSoccer\obj\Debug\RoboSoccer.pdb
+C:\Users\JailBreaker\Documents\GitHub\RobotAlog\RoboSoccer\RoboSoccer\bin\Debug\RoboSoccer.exe.config
+C:\Users\JailBreaker\Documents\GitHub\RobotAlog\RoboSoccer\RoboSoccer\obj\Debug\RoboSoccer.exe
+C:\Users\JailBreaker\Documents\GitHub\RobotAlog\RoboSoccer\RoboSoccer\obj\Debug\RoboSoccer.pdb
+C:\Users\JailBreaker\Documents\GitHub\RobotAlog\RoboSoccer\RoboSoccer\bin\Debug\RoboSoccer.exe
+C:\Users\JailBreaker\Documents\GitHub\RobotAlog\RoboSoccer\RoboSoccer\bin\Debug\RoboSoccer.pdb
+C:\Users\JailBreaker\Documents\GitHub\RobotAlog\RoboSoccer\RoboSoccer\obj\Debug\RoboSoccer.csprojResolveAssemblyReference.cache
+C:\Users\JailBreaker\Documents\GitHub\RobotAlog\RoboSoccer\RoboSoccer\obj\Debug\RoboSoccer.Form1.resources
+C:\Users\JailBreaker\Documents\GitHub\RobotAlog\RoboSoccer\RoboSoccer\obj\Debug\RoboSoccer.Properties.Resources.resources
+C:\Users\JailBreaker\Documents\GitHub\RobotAlog\RoboSoccer\RoboSoccer\obj\Debug\RoboSoccer.csproj.GenerateResource.Cache

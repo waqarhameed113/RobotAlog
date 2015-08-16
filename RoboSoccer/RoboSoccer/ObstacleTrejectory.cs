@@ -16,9 +16,13 @@ namespace RoboSoccer
         Calculation cal;
         public double[] x;
         public double[] y;
-
+        public const int stepsize = 200;
+        public double angle;
+        public double distance;
         public ObstacleTrejectory()
         {
+            distance = new double();
+            angle = new double();
             XCC = new Stack();
             YCC = new Stack();
             Angle = new Queue();
@@ -90,8 +94,7 @@ namespace RoboSoccer
 
             }
 
-            XCC.Clear();
-            YCC.Clear();
+
 
            
             }
@@ -126,7 +129,126 @@ namespace RoboSoccer
             
         }
 
+
+        public void PathFinding (double target_y, double target_x,double __roboty,double __robotx)
+        {
+            
+             angle = cal.Angle(target_y, target_x, __roboty, __robotx);
           
+//          distance= cal.Distances(target_y, target_x, __roboty, __robotx);
+            int Xstep= (int) (stepsize * Math.Cos(angle * Math.PI / 180));
+            int Ystep = (int)(stepsize * Math.Sin(angle * Math.PI / 180));
+            int count = 1;
+
+            if ((target_x < __robotx) && Xstep !=0)
+            {
+                Xstep *= -1;
+                while (target_x < __robotx)
+                {
+                    if (count == 1)
+                    {
+                        __robotx += Xstep;
+                        XCC.Push(__robotx);
+                        count = 0;
+                    }
+                    else
+                    {
+                        __robotx += Xstep;
+                        XCC.Push(__robotx);
+                        
+                    }
+                }
+
+            }
+            else  if (Xstep != 0)
+            {
+                while (target_x > __robotx)
+                {
+                    if (count == 1)
+                    {
+                        __robotx +=Xstep;
+                        XCC.Push(__robotx);
+                        count = 0;
+                    }
+                    else
+                    {
+                        __robotx += Xstep;
+                        XCC.Push(__robotx);
+                       
+                    }
+                }
+
+            }
+            count = 1;
+
+            if (target_y<__roboty && Ystep !=0)
+            {
+                Ystep *= -1;
+                while (target_y < __roboty)
+                {
+                    if (count == 1)
+                    {
+                        __roboty += Ystep;
+                        YCC.Push(__roboty);
+                        count = 0;
+                    }
+                    else
+                    {
+                        __roboty += Ystep;
+                        YCC.Push((int)YCC.Pop() + Ystep);
+                        
+                    }
+                }
+
+
+            }
+            else if ( Ystep != 0)
+            {
+                while (target_y > __roboty )
+                {
+                    if (count == 1)
+                    {
+                        __roboty += Ystep;
+                        YCC.Push(__roboty);
+                        count = 0;
+                    }
+                    else
+                    {
+                        __roboty += Ystep;
+                        YCC.Push(__roboty);
+                        
+                    }
+                }
+
+
+            }
+
+            if (XCC.Count <=YCC.Count)
+            {
+                while (XCC.Count != YCC.Count)
+                {
+                    XCC.Push(__robotx);
+                }
+            }
+            else if (YCC.Count <=XCC.Count)
+            {
+                while (XCC.Count != YCC.Count)
+                {
+                    YCC.Push(__roboty);
+                }
+            }
+            
+            XCC.Push(target_x);
+            YCC.Push(target_y);
+            int a=XCC.Count;
+            int b = YCC.Count;
+            int c = 5;
+            XCC.Clear();
+            YCC.Clear();
+        }
+        
+     
+                  
         }
         
     }
