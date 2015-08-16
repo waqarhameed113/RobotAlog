@@ -36,7 +36,7 @@ namespace RoboSoccer
         {
 
 
-
+        /*
             if ((R2Rdistance < 1000 && balldistance[1] > balldistance[0] && R2Rdistance > 0)|| pointPlaning.pathcomplete==0)
             {
                 desire_Angle[1] = pointPlaning.pointPlaning(robotx[1], roboty[1], robotorient[1], ballx, bally, robotx[0], roboty[0], balldistance[0], trejectory);
@@ -55,7 +55,7 @@ namespace RoboSoccer
                 desire_distance[1] = balldistance[1];
                 trejectory = 1;
             }
-
+          */
         }
 
 

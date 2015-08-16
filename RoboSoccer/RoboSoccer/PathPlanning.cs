@@ -62,6 +62,14 @@ namespace RoboSoccer
             return FinalAngle;
             
         }
+        public double LinearAngualPlanning(double _robot_X, double _robot_Y, double _orient, double target_X, double target_Y, double O_robot_x, double O_robot_y, double O_balldistance)
+        {
+
+
+
+
+            return FinalAngle;
+        }
 
         public double pointPlaning(double _robot_X, double _robot_Y, double _orient)
         {
