@@ -37,16 +37,16 @@ namespace RoboSoccer
             f1.getFeedback();
             richTextBox1.Text = "Ball_X "+((int)f1.ballx).ToString()+"\n";
             richTextBox1.Text += "Ball_Y " + ((int)f1.bally).ToString() + "\n";
-            richTextBox1.Text += "Robot_Id " + f1.robotID[1].ToString()+'\n';
-            richTextBox1.Text += "Robot_X " + ((int)f1.robotX[1]).ToString() + '\n';
-            richTextBox1.Text += "Robot_Y " + ((int)f1.robotY[1]).ToString() + '\n';
-            richTextBox1.Text += "Distance " + ((int)f1.distance[1]).ToString() + '\n';
-            richTextBox1.Text += "Angle " + ((int)f1.angle[1]).ToString() + '\n';
-            richTextBox1.Text += "Orient " + ((int)f1.orient[1]).ToString() + '\n';
+            richTextBox1.Text += "Robot_Id " + f1.BluerobotID[1].ToString()+'\n';
+            richTextBox1.Text += "Robot_X " + ((int)f1.BluerobotX[1]).ToString() + '\n';
+            richTextBox1.Text += "Robot_Y " + ((int)f1.BluerobotY[1]).ToString() + '\n';
+            richTextBox1.Text += "Distance " + ((int)f1.Bluedistance[1]).ToString() + '\n';
+            richTextBox1.Text += "Angle " + ((int)f1.Blueangle[1]).ToString() + '\n';
+            richTextBox1.Text += "Orient " + ((int)f1.Blueorient[1]).ToString() + '\n';
 
 
             //    richTextBox2.Text = "Speed,Rotate,Angle,R_Magnitude,garbage\n";
-             richTextBox2.Text = f1.speed.ToString() + ',' + ((int)f1.orient[1]).ToString() + ',' + ((int)f1.angle[1]).ToString() + ",50,0\n"+ f1.line.ToString()+'\n';
+             richTextBox2.Text = f1.speed[1].ToString() + ',' + ((int)f1.Blueorient[1]).ToString() + ',' + ((int)f1.Blueangle[1]).ToString() + ",80,0\n"+ f1.line.ToString()+'\n';
             richTextBox2.Text += f1.R2R_distance[1].ToString();
 
             timer1.Enabled = true;
@@ -91,7 +91,7 @@ namespace RoboSoccer
 
                 try
                 {
-                    serialPort1.WriteLine(f1.speed.ToString()+','+((int)f1.orient[1]).ToString()+',' + ((int)f1.angle[1]).ToString() + ",60,0");
+                    serialPort1.WriteLine(f1.speed[1].ToString()+','+((int)f1.Blueorient[1]).ToString()+',' + ((int)f1.Blueangle[1]).ToString() + ",80,0");
          //           richTextBox2.Text = f1.speed.ToString() + ',' + ((int)f1.orient[5]).ToString() + ',' + ((int)f1.angle[5]).ToString() + ",60,0";
                 }
                 catch { }
