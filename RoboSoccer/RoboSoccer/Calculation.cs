@@ -27,9 +27,9 @@ namespace RoboSoccer
 
         public double orient (double _angle)
         {
-            if (_angle > 365||_angle<185)
+            if (_angle > 365&& _angle <545)
                 return 1;    // 1 anticlock
-            else if (_angle < 355)
+            else if (_angle < 355 || _angle >555)
                 return 2; /// 2 clock wise
             else
             return 0;

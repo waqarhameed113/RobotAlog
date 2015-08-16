@@ -8,3 +8,13 @@ C:\Users\JailBreaker\Desktop\Robosoccer\RoboSoccer\RoboSoccer\bin\Debug\RoboSocc
 C:\Users\JailBreaker\Desktop\Robosoccer\RoboSoccer\RoboSoccer\bin\Debug\protobuf-net.dll
 C:\Users\JailBreaker\Desktop\Robosoccer\RoboSoccer\RoboSoccer\obj\Debug\RoboSoccer.exe
 C:\Users\JailBreaker\Desktop\Robosoccer\RoboSoccer\RoboSoccer\obj\Debug\RoboSoccer.pdb
+C:\Users\JailBreaker\Desktop\Robosoccer\RoboSoccer - Copy\RoboSoccer\bin\Debug\RoboSoccer.exe.config
+C:\Users\JailBreaker\Desktop\Robosoccer\RoboSoccer - Copy\RoboSoccer\obj\Debug\RoboSoccer.exe
+C:\Users\JailBreaker\Desktop\Robosoccer\RoboSoccer - Copy\RoboSoccer\obj\Debug\RoboSoccer.pdb
+C:\Users\JailBreaker\Desktop\Robosoccer\RoboSoccer - Copy\RoboSoccer\bin\Debug\RoboSoccer.exe
+C:\Users\JailBreaker\Desktop\Robosoccer\RoboSoccer - Copy\RoboSoccer\bin\Debug\RoboSoccer.pdb
+C:\Users\JailBreaker\Desktop\Robosoccer\RoboSoccer - Copy\RoboSoccer\bin\Debug\protobuf-net.dll
+C:\Users\JailBreaker\Desktop\Robosoccer\RoboSoccer - Copy\RoboSoccer\obj\Debug\RoboSoccer.csprojResolveAssemblyReference.cache
+C:\Users\JailBreaker\Desktop\Robosoccer\RoboSoccer - Copy\RoboSoccer\obj\Debug\RoboSoccer.Form1.resources
+C:\Users\JailBreaker\Desktop\Robosoccer\RoboSoccer - Copy\RoboSoccer\obj\Debug\RoboSoccer.Properties.Resources.resources
+C:\Users\JailBreaker\Desktop\Robosoccer\RoboSoccer - Copy\RoboSoccer\obj\Debug\RoboSoccer.csproj.GenerateResource.Cache

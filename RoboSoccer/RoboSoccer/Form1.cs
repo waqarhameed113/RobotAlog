@@ -47,7 +47,8 @@ namespace RoboSoccer
 
             //    richTextBox2.Text = "Speed,Rotate,Angle,R_Magnitude,garbage\n";
              richTextBox2.Text = f1.speed.ToString() + ',' + ((int)f1.orient[1]).ToString() + ',' + ((int)f1.angle[1]).ToString() + ",50,0\n"+ f1.line.ToString()+'\n';
-           // richTextBox2.Text = f1.speed.ToString() + ',' + ((int)f1.orient[5]).ToString() + ',' + ((int)f1.angle[5]).ToString() + ",60,0";
+            richTextBox2.Text += f1.R2R_distance[1].ToString();
+
             timer1.Enabled = true;
 
             

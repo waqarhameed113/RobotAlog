@@ -15,18 +15,19 @@ namespace RoboSoccer
 {
     public class FeedBack 
     {
-        public const int Master = 5;
+        public const int Master = 1;
+        public const int radius =1500;
         public UdpClient sock = new UdpClient(10002);
         public protos.tutorial.messages_robocup_ssl_wrapper.SSL_WrapperPacket pakt = new protos.tutorial.messages_robocup_ssl_wrapper.SSL_WrapperPacket();
         IPEndPoint iep;
         public double ballx, bally;
-        public double[] robotX, robotY, robotID,robotOrient,distance, angle, orient ;
+        public double[] robotX, robotY, robotID,robotOrient,distance, angle, orient,R2R_distance ;
         public int speed ;
         const int noOfRobot = 3;
         public int c_radius;
         Calculation calc;
         PathPlanning path;
-        //PID pid;
+        
         public int line;
         public FeedBack()
         {
@@ -36,6 +37,7 @@ namespace RoboSoccer
             robotID = new double[noOfRobot];
             robotX = new double[noOfRobot];
             robotY = new double[noOfRobot];
+            R2R_distance = new double[noOfRobot];
             speed = new int();
               robotOrient = new double[noOfRobot];
             distance = new double[noOfRobot];
@@ -43,14 +45,14 @@ namespace RoboSoccer
             orient = new double[noOfRobot];
             calc = new Calculation();
             path = new PathPlanning();
-        //    pid = new PID();
+
             
         }
 public  void getFeedback()
         {
             byte[] data = sock.Receive(ref iep);
 
-            // decoding the data recived 
+            
             pakt = Serializer.Deserialize<protos.tutorial.messages_robocup_ssl_wrapper.SSL_WrapperPacket>(new System.IO.MemoryStream(data));
             
            
@@ -69,17 +71,45 @@ public  void getFeedback()
                 distance[id] = calc.Distances(bally,ballx,robotY[id],robotX[id]);
                 angle[id] = calc.Angle(bally, ballx, robotY[id], robotX[id],robotOrient[id]);
                 orient[id] = calc.orient(angle[id]);
-                
-                
-
                 angle[id] = path.routePlaning(robotX[id], robotY[id], distance[id], angle[id], robotOrient[id]);
+
                 distance[id] = path.FinalDistance;
-                
+             /*   if (Master != id)
+                {
+                    R2R_distance[Master] = calc.Distances(robotY[id], robotX[id], robotY[Master], robotX[Master]);
+
+                    if ((R2R_distance[Master] < radius)&& (distance[Master]>distance[id]))
+                        angle[Master] = path.routePlaning(robotX[Master],robotY[Master],radius,robotX[i],robotY[i],angle[Master],distance[i],ballx,bally);
+                    distance[Master] = path.FinalDistance;
+                    speed = path.speed;
+                }
+               */ 
                 speed = path.speed;
                 line = path.Route;               
 
             }
-          
+
+
+                R2R_distance[Master] = calc.Distances(robotY[0], robotX[0], robotY[Master], robotX[Master]);
+            /*if (R2R_distance[Master] < 1000)
+            {
+                angle[Master] = 90 + calc.Angle(robotY[0], robotX[0], robotY[Master], robotX[Master], robotOrient[Master]);
+
+            }
+           /* else
+            { */
+                if ((R2R_distance[Master] < radius) && (distance[Master] > distance[0]))
+                {
+                    angle[Master] = path.routePlaning(robotX[Master], robotY[Master], radius, robotX[0], robotY[0], angle[Master], distance[0], ballx, bally,R2R_distance[Master]);
+                    distance[Master] = path.FinalDistance;
+             
+                speed = path.speed;
+                }
+             
+           // }
+            
+
+
 
 
         }                 
