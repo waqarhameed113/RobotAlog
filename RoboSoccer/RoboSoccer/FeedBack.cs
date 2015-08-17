@@ -29,10 +29,10 @@ namespace RoboSoccer
         public int[] speed ;
         const int noOfRobot = 3;
         public int c_radius;
-        Calculation calc;
-        PathPlanning path;
-        Control control;
-        ObstacleTrejectory motion;
+       public Calculation calc;
+        public PathPlanning path;
+        public Control Controller;
+       public  ObstacleTrejectory motion;
         public int line;
         public FeedBack()
         {
@@ -53,7 +53,7 @@ namespace RoboSoccer
             /////////////////////////////////////////
             calc = new Calculation();
             path = new PathPlanning();
-            control = new Control();
+            Controller = new Control();
             motion = new ObstacleTrejectory();
                         
         }
@@ -63,28 +63,28 @@ public  void getFeedback()
             if (Mybotblue ==1)
             {
                 
-                control.setvalue(ballx, bally, Striker, BluerobotX[Striker], BluerobotY[Striker], BluerobotOrient[Striker], Blueangle[Striker], Bluedistance[Striker], speed[Striker],R2R_distance[Striker]);
-                control.setvalue(ballx, bally, Goalkee, BluerobotX[Goalkee], BluerobotY[Goalkee], BluerobotOrient[Goalkee], Blueangle[Goalkee], Bluedistance[Goalkee], speed[Striker],R2R_distance[Striker]);
-                control.pathDecision();
+                Controller.setvalue(ballx, bally, Striker, BluerobotX[Striker], BluerobotY[Striker], BluerobotOrient[Striker], Blueangle[Striker], Bluedistance[Striker], speed[Striker],R2R_distance[Striker]);
+                Controller.setvalue(ballx, bally, Goalkee, BluerobotX[Goalkee], BluerobotY[Goalkee], BluerobotOrient[Goalkee], Blueangle[Goalkee], Bluedistance[Goalkee], speed[Striker],R2R_distance[Striker]);
+                Controller.pathDecision();
                 assignvalue();
 
             }
             else
             {
 
-                control.setvalue(ballx, bally, Striker, YellowrobotX[Striker], YellowrobotY[Striker], YellowrobotOrient[Striker], Yellowangle[Striker], Yellowdistance[Striker], speed[Striker], R2R_distance[Striker]);
-                control.setvalue(ballx, bally, Goalkee, YellowrobotX[Goalkee], YellowrobotY[Goalkee], YellowrobotOrient[Goalkee], Yellowangle[Goalkee], Yellowdistance[Goalkee], speed[Striker], R2R_distance[Striker]);
-                control.pathDecision();
+                Controller.setvalue(ballx, bally, Striker, YellowrobotX[Striker], YellowrobotY[Striker], YellowrobotOrient[Striker], Yellowangle[Striker], Yellowdistance[Striker], speed[Striker], R2R_distance[Striker]);
+                Controller.setvalue(ballx, bally, Goalkee, YellowrobotX[Goalkee], YellowrobotY[Goalkee], YellowrobotOrient[Goalkee], Yellowangle[Goalkee], Yellowdistance[Goalkee], speed[Striker], R2R_distance[Striker]);
+                Controller.pathDecision();
                 assignvalue();
             }
 
         }
         public void assignvalue()
         {
-            Blueangle[1] = control.desire_Angle[1];
-            Bluedistance[1] = control.desire_distance[1];
-            speed[1] = control.desire_speed[1];
-            line = control.routeNo;
+            Blueangle[1] = Controller.desire_Angle[1];
+            Bluedistance[1] = Controller.desire_distance[1];
+            speed[1] = Controller.desire_speed[1];
+            line = Controller.routeNo;
             
         }
 
@@ -125,7 +125,7 @@ public  void getFeedback()
                 Blueangle[id] = calc.Angle(bally, ballx, BluerobotY[id], BluerobotX[id], BluerobotOrient[id]);
                 Blueorient[id] = calc.orient(Blueangle[id]);
                 Blueangle[id] = path.routePlaning(BluerobotX[id], BluerobotY[id], Bluedistance[id], Blueangle[id], BluerobotOrient[id]);
-
+                    
                 Bluedistance[id] = path.FinalDistance;
                 
 //R2R_distance[Striker] = calc.Distances(BluerobotY[0], BluerobotX[0], BluerobotY[Striker], BluerobotX[Striker]);
@@ -133,7 +133,7 @@ public  void getFeedback()
                 line = path.Route;
 
             }
-            motion.PathFinding(bally, ballx, BluerobotY[Striker], BluerobotX[Striker]);
+            motion.PathFinding(bally, ballx, BluerobotY[Striker], BluerobotX[Striker],BluerobotOrient[Striker],BluerobotY[Goalkee],BluerobotX[Goalkee], (pakt.detection.robots_blue.Count+ pakt.detection.robots_yellow.Count));
 
             if (pakt.detection.robots_blue.Count>1)
             R2R_distance[Striker] = calc.Distances(BluerobotY[0], BluerobotX[0], BluerobotY[Striker], BluerobotX[Striker]);

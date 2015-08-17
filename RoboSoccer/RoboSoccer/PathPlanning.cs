@@ -95,7 +95,7 @@ namespace RoboSoccer
             return FinalAngle;
         }
 
-        public double pointPlaning(double _robot_X, double _robot_Y, double _orient, double _ball_x,double _ball_y,double O_robot_x,double O_robot_y,double O_balldistance,int newT)
+  /*      public double pointPlaning(double _robot_X, double _robot_Y, double _orient, double _ball_x,double _ball_y,double O_robot_x,double O_robot_y,double O_balldistance,int newT)
         {
 
 
@@ -144,7 +144,7 @@ namespace RoboSoccer
 
 
         }
-
+    */
 
     }
 

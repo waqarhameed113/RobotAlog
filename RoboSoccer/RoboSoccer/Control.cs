@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RoboSoccer
 {
-    class Control
+    public class Control
     {
         public double ballx, bally, R2Rdistance;
         public double[] robotx, roboty, robotorient, balldistance, ballangle, desire_Angle, desire_distance;

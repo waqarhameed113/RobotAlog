@@ -11,22 +11,23 @@ namespace RoboSoccer
     {
        public Stack XCC ;
         public Stack YCC ;
-        public Queue Angle;
-        public Queue Point_distance;
+   //     public Queue Angle;
+   //     public Queue Point_distance;
         Calculation cal;
         public double[] x;
         public double[] y;
         public const int stepsize = 200;
         public double angle;
-        public double distance;
+        public double Totaldistance;
+        
         public ObstacleTrejectory()
         {
-            distance = new double();
+            Totaldistance = new double();
             angle = new double();
             XCC = new Stack();
             YCC = new Stack();
-            Angle = new Queue();
-            Point_distance = new Queue();
+ //           Angle = new Queue();
+   //         Point_distance = new Queue();
             cal = new Calculation();
             
                 
@@ -42,7 +43,7 @@ namespace RoboSoccer
             double PointAngle = new double();
             int loopout = 0;
 
-            test = ShortestPath(_OBX, _OBY, _radius,__ballx,__bally,angle);
+            test = ShortestPath(_OBX, _OBY, _radius,__ballx,__bally,angle,__robotx,__roboty);
 
 
             while (_O_balldistance<PointDistanceball)
@@ -61,8 +62,8 @@ namespace RoboSoccer
 
                     PointAngle = cal.Angle((double)YCC.Peek(), (double)XCC.Peek(), __roboty, __robotx, __Orient);
 
-                    Point_distance.Enqueue(PointDistanceball);
-                    Angle.Enqueue(PointAngle);
+     //               Point_distance.Enqueue(PointDistanceball);
+     //               Angle.Enqueue(PointAngle);
                 }
                 else
                 {
@@ -76,50 +77,47 @@ namespace RoboSoccer
 
                     PointAngle = cal.Angle((double)YCC.Peek(), (double)XCC.Peek(), __roboty, __robotx, __Orient);
                   
-                    Point_distance.Enqueue(PointDistanceball);
-                    Angle.Enqueue(PointAngle);
+      //              Point_distance.Enqueue(PointDistanceball);
+      //              Angle.Enqueue(PointAngle);
                 }
 
                 if (loopout > 10)
                     break;
             }
-              x = new double[XCC.Count];
-             y = new double[YCC.Count];
-            for (int i=XCC.Count-1;i>=0;i--)
-            {
-                x[i] = (double)XCC.Peek();
-                y[i] = (double)YCC.Peek();
-                XCC.Pop();
-                YCC.Pop();
 
-            }
-
+            int a = 0;    
 
 
            
             }
-        public int ShortestPath(double obx, double oby, double radius,double ballx, double bally , int _angle)
+        public int ShortestPath(double obx, double oby, double radius,double ballx, double bally , int _angle,double robotx,double roboty)
         {
             double distance1 = new double();
             double distance2 = new double();
             int angle = _angle;
-            for (int i= 0; i < 10; i++)
+            double x = new double();
+            double y = new double();
+            double preX=robotx;
+            double preY = roboty;
+            for (int i= 0; i < 6; i++)
             {
                 angle += 15;
-                XCC.Push((obx + radius * Math.Cos(angle * Math.PI / 180)));
-                YCC.Push((oby + radius * Math.Sin(angle * Math.PI / 180)));
-                distance1 += cal.Distances(bally, ballx, (double)YCC.Peek(), (double)XCC.Peek());
+                x=(obx + radius * Math.Cos(angle * Math.PI / 180));
+                y=(oby + radius * Math.Sin(angle * Math.PI / 180));
+                distance1 += cal.Distances(bally, ballx,y, x);
+                preX = x;
+                preY = y;
             }
-            angle = 0;
-            for (int i = 0; i < 10; i++)
+            
+            angle = _angle;
+            for (int i = 0; i < 6; i++)
             {
                 angle -= 15;
-                XCC.Push((obx + radius * Math.Cos(angle * Math.PI / 180)));
-                YCC.Push((oby + radius * Math.Sin(angle * Math.PI / 180)));
-                distance2 += cal.Distances(bally, ballx, (double)YCC.Peek(), (double)XCC.Peek());
+                x = (obx + radius * Math.Cos(angle * Math.PI / 180));
+                y = (oby + radius * Math.Sin(angle * Math.PI / 180));
+                distance2 += cal.Distances(bally, ballx, y, x);
             }
-            XCC.Clear();
-            YCC.Clear();
+              
 
             if (distance1 < distance2)
                 return 1;
@@ -130,121 +128,104 @@ namespace RoboSoccer
         }
 
 
-        public void PathFinding (double target_y, double target_x,double __roboty,double __robotx)
+        public void PathFinding(double target_y, double target_x, double __roboty, double __robotx,double _robotOrient ,double O_roboty,double O_robotx,int robotcount)
         {
-            
-             angle = cal.Angle(target_y, target_x, __roboty, __robotx);
-          
-//          distance= cal.Distances(target_y, target_x, __roboty, __robotx);
-            int Xstep= (int) (stepsize * Math.Cos(angle * Math.PI / 180));
+            angle = cal.Angle(target_y, target_x, __roboty, __robotx);
+            //distance= cal.Distances(target_y, target_x, __roboty, __robotx);
+            double d_point_O;  // distancepoint with obsticle
+            double obstacal_targetdistance;
+            int obstacal_Count=robotcount;
+            double strikerDistance;
+            int Xstep = (int)(stepsize * Math.Cos(angle * Math.PI / 180));
             int Ystep = (int)(stepsize * Math.Sin(angle * Math.PI / 180));
-            int count = 1;
-
-            if ((target_x < __robotx) && Xstep !=0)
+            Xstep = Math.Abs(Xstep);
+            Ystep = Math.Abs(Ystep);
+            double X, Y;
+            X = __robotx;
+            Y = __roboty;
+            double point_targetdistance = 15000;  
+           
+          while (point_targetdistance>400)
             {
-                Xstep *= -1;
-                while (target_x < __robotx)
+              if (target_x>X && target_y >Y)
                 {
-                    if (count == 1)
-                    {
-                        __robotx += Xstep;
-                        XCC.Push(__robotx);
-                        count = 0;
-                    }
-                    else
-                    {
-                        __robotx += Xstep;
-                        XCC.Push(__robotx);
-                        
-                    }
-                }
+                    X += Xstep;
+                    Y += Ystep;
+                    XCC.Push(X);
+                    YCC.Push(Y);
 
-            }
-            else  if (Xstep != 0)
-            {
-                while (target_x > __robotx)
+                }
+              else if (X>target_x&& Y>target_y)
                 {
-                    if (count == 1)
-                    {
-                        __robotx +=Xstep;
-                        XCC.Push(__robotx);
-                        count = 0;
-                    }
-                    else
-                    {
-                        __robotx += Xstep;
-                        XCC.Push(__robotx);
-                       
-                    }
+                    X -= Xstep;
+                    Y -= Ystep;
+                    XCC.Push(X);
+                    YCC.Push(Y);
                 }
-
-            }
-            count = 1;
-
-            if (target_y<__roboty && Ystep !=0)
-            {
-                Ystep *= -1;
-                while (target_y < __roboty)
+                 else if( target_x<X && Y<target_y)
                 {
-                    if (count == 1)
-                    {
-                        __roboty += Ystep;
-                        YCC.Push(__roboty);
-                        count = 0;
-                    }
-                    else
-                    {
-                        __roboty += Ystep;
-                        YCC.Push((int)YCC.Pop() + Ystep);
-                        
-                    }
+                    X -= Xstep;
+                    Y += Ystep;
+                    XCC.Push(X);
+                    YCC.Push(Y);
                 }
-
-
-            }
-            else if ( Ystep != 0)
-            {
-                while (target_y > __roboty )
+              else if (target_x>X && target_y<Y)
                 {
-                    if (count == 1)
-                    {
-                        __roboty += Ystep;
-                        YCC.Push(__roboty);
-                        count = 0;
-                    }
-                    else
-                    {
-                        __roboty += Ystep;
-                        YCC.Push(__roboty);
-                        
-                    }
+                    X += Xstep;
+                    Y -= Ystep;                                           
+                    XCC.Push(X);
+                    YCC.Push(Y);
                 }
-
-
+                ////////////////////////////////////////////
+                //Here we get test with point with obstical//
+                //////////////////////////////////////////////
+                point_targetdistance = cal.Distances(target_y, target_x, (double)YCC.Peek(), (double)XCC.Peek());
+                d_point_O = cal.Distances(O_roboty, O_robotx,(double) YCC.Peek(),(double) XCC.Peek());
+                obstacal_targetdistance = cal.Distances(target_y, target_x, O_roboty, O_robotx);
+                strikerDistance = cal.Distances(target_y, target_x, __roboty, __robotx);
+                if (d_point_O<800 && robotcount>1&& obstacal_Count>1 && obstacal_targetdistance<strikerDistance)
+                {
+                    newPath(400, O_robotx, O_roboty, obstacal_targetdistance, target_x, target_y, __robotx, __roboty, _robotOrient);
+                    angle = cal.Angle(target_y, target_x, (double)YCC.Peek(),(double)XCC.Peek());
+                    Xstep = (int)(stepsize * Math.Cos(angle * Math.PI / 180));
+                     Ystep = (int)(stepsize * Math.Sin(angle * Math.PI / 180));
+                    Xstep = Math.Abs(Xstep);
+                    Ystep = Math.Abs(Ystep);
+                    X = (double)XCC.Peek();
+                    Y = (double)YCC.Peek();
+                    obstacal_Count--;
+                }
+               
+                
             }
 
-            if (XCC.Count <=YCC.Count)
-            {
-                while (XCC.Count != YCC.Count)
-                {
-                    XCC.Push(__robotx);
-                }
-            }
-            else if (YCC.Count <=XCC.Count)
-            {
-                while (XCC.Count != YCC.Count)
-                {
-                    YCC.Push(__roboty);
-                }
-            }
-            
             XCC.Push(target_x);
             YCC.Push(target_y);
-            int a=XCC.Count;
-            int b = YCC.Count;
-            int c = 5;
-            XCC.Clear();
-            YCC.Clear();
+            x = new double[XCC.Count];
+            y = new double[YCC.Count];
+            for (int i = XCC.Count - 1; i >= 0; i--)
+            {
+                x[i] = (double)XCC.Peek();
+                y[i] = (double)YCC.Peek();
+                     
+                x[i] = (int)x[i];
+                y[i] = (int)y[i];
+                XCC.Pop();
+                YCC.Pop();
+
+            }
+            for (int j = 0;j<x.Length;j++)
+            {
+                if (j == 0)
+                    Totaldistance = cal.Distances(y[j], x[j], __roboty, __robotx);
+                 else
+                    Totaldistance += cal.Distances(y[j], x[j], y[j-1], x[j-1]);
+            }
+
+            int a = 0;
+
+
+
         }
         
      

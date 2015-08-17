@@ -26,7 +26,10 @@ namespace RoboSoccer
 
         private void button1_Click(object sender, EventArgs e)
         {
-             timer1.Enabled = true;
+            if (timer1.Enabled != true)
+                timer1.Enabled = true;
+            else
+                timer1.Enabled = false;
 
 
         }
@@ -43,11 +46,30 @@ namespace RoboSoccer
             richTextBox1.Text += "Distance " + ((int)f1.Bluedistance[1]).ToString() + '\n';
             richTextBox1.Text += "Angle " + ((int)f1.Blueangle[1]).ToString() + '\n';
             richTextBox1.Text += "Orient " + ((int)f1.Blueorient[1]).ToString() + '\n';
-
+               
 
             //    richTextBox2.Text = "Speed,Rotate,Angle,R_Magnitude,garbage\n";
              richTextBox2.Text = f1.speed[1].ToString() + ',' + ((int)f1.Blueorient[1]).ToString() + ',' + ((int)f1.Blueangle[1]).ToString() + ",80,0\n"+ f1.line.ToString()+'\n';
             richTextBox2.Text += f1.R2R_distance[1].ToString();
+
+            richTextBox3.Text = "X ";
+            richTextBox3.Text += f1.motion.x[0].ToString()+' ';
+           
+            for (int i=1; i<f1.motion.x.Length;i++)
+            {
+                richTextBox3.Text += f1.motion.x[i].ToString() + ' ';
+              
+            }
+
+            richTextBox3.Text += "\n\nY ";
+            richTextBox3.Text += f1.motion.y[0].ToString() + ' ';
+
+            for (int i = 1; i < f1.motion.y.Length; i++)
+            {
+                
+                richTextBox3.Text += f1.motion.y[i].ToString() + ' ';
+            }
+           
 
             timer1.Enabled = true;
 
