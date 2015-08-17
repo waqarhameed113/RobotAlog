@@ -46,9 +46,8 @@ namespace RoboSoccer
             richTextBox1.Text += "Distance " + ((int)f1.Bluedistance[1]).ToString() + '\n';
             richTextBox1.Text += "Angle " + ((int)f1.Blueangle[1]).ToString() + '\n';
             richTextBox1.Text += "Orient " + ((int)f1.Blueorient[1]).ToString() + '\n';
-               
 
-            //    richTextBox2.Text = "Speed,Rotate,Angle,R_Magnitude,garbage\n";
+                        //    richTextBox2.Text = "Speed,Rotate,Angle,R_Magnitude,garbage\n";
              richTextBox2.Text = f1.speed[1].ToString() + ',' + ((int)f1.Blueorient[1]).ToString() + ',' + ((int)f1.Blueangle[1]).ToString() + ",80,0\n"+ f1.line.ToString()+'\n';
             richTextBox2.Text += f1.R2R_distance[1].ToString();
 
@@ -69,8 +68,7 @@ namespace RoboSoccer
                 
                 richTextBox3.Text += f1.motion.y[i].ToString() + ' ';
             }
-           
-
+          
             timer1.Enabled = true;
 
             
@@ -121,6 +119,18 @@ namespace RoboSoccer
 
 
             timer2.Enabled = true;
+        }
+
+        private void chart1_Click(object sender, EventArgs e)
+        {
+            chart1.Series["Trejectory"].Points.Clear();
+           // chart1.Series["Trejectory"].Points.;
+            for (int i = 0; i < f1.motion.x.Length; i++)
+            {
+                chart1.Series["Trejectory"].Points.AddXY(f1.motion.x[i], f1.motion.y[i]);
+            }
+            chart1.Series["Trejectory"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            chart1.Series["Trejectory"].Color = Color.Blue;
         }
     }
     }
