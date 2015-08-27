@@ -67,6 +67,8 @@
     <Compile Include="messages_robocup_ssl_wrapper.cs" />
     <Compile Include="ObstacleTrejectory.cs" />
     <Compile Include="Opponents.cs" />
+    <Compile Include="PathFollower.cs" />
+    <Compile Include="PathPlanner.cs" />
     <Compile Include="PathPlanning.cs" />
     <Compile Include="PID.cs" />
     <Compile Include="Program.cs" />

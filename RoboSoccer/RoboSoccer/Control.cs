@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
-
+using System.Threading;
 namespace RoboSoccer
 {
     public class Control
@@ -17,17 +17,19 @@ namespace RoboSoccer
 
         public int noYellowBots;
         public double[] yellowRobotX, yellowRobotY, yellowRobotOrient;
-        public int pathcomplete = 0;
 
 
+      
         public int BluerobotInField;
         public int YellowrobotInField;
 
-
+        
+        
         public PathPlanning pointPlaning;
         public ObstacleTrejectory motionPlaning;
-
-        public Thread abc;
+        public PathFollower pathFollower;
+        public PathPlanner drawPath;
+        
         public Control(int noofbots,int striker,int goalkey,int team)
         {
             blueRobotX = new double[noofbots];
@@ -39,9 +41,10 @@ namespace RoboSoccer
             Striker = striker;
             Goalkey = goalkey;
             Blueteam = team;
-
+            pathFollower = new PathFollower();
             motionPlaning = new ObstacleTrejectory();
-            abc = new Thread(pathDecision);
+            drawPath = new PathPlanner(noofbots, striker, goalkey, team);
+          
 
         }
 
@@ -49,6 +52,8 @@ namespace RoboSoccer
           public void setBall(double _ballx,double _bally)
         {
             ballx = _ballx; bally = _bally;
+
+            drawPath.setBall(ballx, bally);
         }
       
         public void setBlueBots(int id,double robotX,double robotY,double robotOrient)
@@ -56,6 +61,7 @@ namespace RoboSoccer
             blueRobotX[id] = robotX;
             blueRobotY[id] = robotY;
             blueRobotOrient[id] = robotOrient;
+            drawPath.setBlueBots(id, robotX, robotY, robotOrient);
         }
 
 
@@ -65,8 +71,8 @@ namespace RoboSoccer
             yellowRobotX[id] = robotX;
             yellowRobotY[id] = robotY;
             yellowRobotOrient[id] = robotOrient;
-           
-           
+            drawPath.setYellowBots(id, robotX, robotY, robotOrient);
+
         }
 
 
@@ -79,19 +85,7 @@ namespace RoboSoccer
         }
 
 
-        public void pathDecision()
-        {
-            
-            //  motion.PathFinding(bally, ballx, BluerobotY[Striker], BluerobotX[Striker], BluerobotOrient[Striker], BluerobotY[Goalkee], BluerobotX[Goalkee], (pakt.detection.robots_blue.Count + pakt.detection.robots_yellow.Count));
-            if (Blueteam == 1)
-            {
-                motionPlaning.PathFinding(Blueteam,bally, ballx, blueRobotY, blueRobotX, blueRobotOrient, Striker, yellowRobotY, yellowRobotX, BluerobotInField + YellowrobotInField);
-            }
-            else
-                motionPlaning.PathFinding(Blueteam,bally, ballx, yellowRobotY, yellowRobotX, yellowRobotOrient, Striker, blueRobotY, blueRobotX, BluerobotInField + YellowrobotInField);
-
-            pathcomplete = 1; 
-        }
+       
 
 
 

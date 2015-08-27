@@ -33,10 +33,11 @@ namespace RoboSoccer
         const int noOfRobotBlue = 4;
         const int noOfRobotYellow = 4;
         public int c_radius;
-       public Calculation calc;
+        public Calculation calc;
         public PathPlanning path;
         public Control Controller;
-       public  ObstacleTrejectory motion;
+        public  ObstacleTrejectory motion;
+        public PathPlanner trajectory;
         public int line;
        
         int a = 0;
@@ -59,51 +60,20 @@ namespace RoboSoccer
             /////////////////////////////////////////
             calc = new Calculation();
             path = new PathPlanning();
-            Controller = new Control(noOfRobot,Striker,Goalkee,Mybotblue); 
+            Controller = new Control(noOfRobot,Striker,Goalkee,Mybotblue);
+            trajectory = new PathPlanner(noOfRobot, Striker, Goalkee, Mybotblue);
             motion = new ObstacleTrejectory();
            
             
         }
 public  void getFeedback()
         {
-            while (true)
-            {
+           
                 getData();
-                Controller.pathDecision();
-                Thread.Sleep(20);
-            }
-
-
-
-            //   Controller.pathDecision();
-            /*if (Mybotblue ==1)
-            {
-                
-                Controller.setvalue(Striker, BluerobotX[Striker], BluerobotY[Striker], BluerobotOrient[Striker], Blueangle[Striker], Bluedistance[Striker], speed[Striker],R2R_distance[Striker]);
-                Controller.setvalue( Goalkee, BluerobotX[Goalkee], BluerobotY[Goalkee], BluerobotOrient[Goalkee], Blueangle[Goalkee], Bluedistance[Goalkee], speed[Striker],R2R_distance[Striker]);
-                Controller.pathDecision();
-                assignvalue();
-
-            }
-            else
-            {
-
-                Controller.setvalue(Striker, YellowrobotX[Striker], YellowrobotY[Striker], YellowrobotOrient[Striker], Yellowangle[Striker], Yellowdistance[Striker], speed[Striker], R2R_distance[Striker]);
-                Controller.setvalue( Goalkee, YellowrobotX[Goalkee], YellowrobotY[Goalkee], YellowrobotOrient[Goalkee], Yellowangle[Goalkee], Yellowdistance[Goalkee], speed[Striker], R2R_distance[Striker]);
-                Controller.pathDecision();
-                assignvalue();
-            */
+   
 
         }
-       /* public void assignvalue()
-        {
-            Blueangle[1] = Controller.desire_Angle[1];
-            Bluedistance[1] = Controller.desire_distance[1];
-            speed[1] = Controller.desire_speed[1];
-            line = Controller.routeNo;
-            
-        }
-         */
+     
                 
  
 
@@ -130,6 +100,7 @@ public  void getFeedback()
                 ballx = pakt.detection.balls[0].x;
                 bally = pakt.detection.balls[0].y;
                 Controller.setBall(ballx, bally);
+                trajectory.setBall(ballx, bally);
             }
             
             for (int i = 0; i < pakt.detection.robots_blue.Count; i++)
@@ -141,16 +112,17 @@ public  void getFeedback()
                 BluerobotOrient[id] = pakt.detection.robots_blue[i].orientation * 180 / Math.PI;
 
                 Controller.setBlueBots(id, BluerobotX[id], BluerobotY[id], BluerobotOrient[id]);
-          //      Bluedistance[id] = calc.Distances(bally, ballx, BluerobotY[id], BluerobotX[id]);
-          //      Blueangle[id] = calc.Angle(bally, ballx, BluerobotY[id], BluerobotX[id], BluerobotOrient[id]);
-          //      Blueorient[id] = calc.orient(Blueangle[id]);
-          //      Blueangle[id] = path.routePlaning(BluerobotX[id], BluerobotY[id], Bluedistance[id], Blueangle[id], BluerobotOrient[id]);
-                    
-          //      Bluedistance[id] = path.FinalDistance;
-                
-//R2R_distance[Striker] = calc.Distances(BluerobotY[0], BluerobotX[0], BluerobotY[Striker], BluerobotX[Striker]);
-            //    speed[id] = path.speed;
-            //    line = path.Route;
+                trajectory.setBlueBots(id, BluerobotX[id], BluerobotY[id], BluerobotOrient[id]);
+                //      Bluedistance[id] = calc.Distances(bally, ballx, BluerobotY[id], BluerobotX[id]);
+                //      Blueangle[id] = calc.Angle(bally, ballx, BluerobotY[id], BluerobotX[id], BluerobotOrient[id]);
+                //      Blueorient[id] = calc.orient(Blueangle[id]);
+                //      Blueangle[id] = path.routePlaning(BluerobotX[id], BluerobotY[id], Bluedistance[id], Blueangle[id], BluerobotOrient[id]);
+
+                //      Bluedistance[id] = path.FinalDistance;
+
+                //R2R_distance[Striker] = calc.Distances(BluerobotY[0], BluerobotX[0], BluerobotY[Striker], BluerobotX[Striker]);
+                //    speed[id] = path.speed;
+                //    line = path.Route;
 
             }
 
@@ -172,14 +144,15 @@ public  void getFeedback()
                 YellowrobotOrient[id] = pakt.detection.robots_yellow[i].orientation * 180 / Math.PI;
 
                 Controller.setYellowBots(id, YellowrobotX[id], YellowrobotY[id], YellowrobotOrient[id]);
-               // Yellowdistance[id] = calc.Distances(bally, ballx, YellowrobotY[id], YellowrobotX[id]);
-              //  Yellowangle[id] = calc.Angle(bally, ballx, YellowrobotY[id], YellowrobotX[id], YellowrobotOrient[id]);
-              //  Yelloworient[id] = calc.orient(Yellowangle[id]);
-              //  Yellowangle[id] = path.routePlaning(YellowrobotX[id], YellowrobotY[id], Yellowdistance[id], Yellowangle[id], YellowrobotOrient[id]);
-               
+                trajectory.setYellowBots(id, YellowrobotX[id], YellowrobotY[id], YellowrobotOrient[id]);
+                // Yellowdistance[id] = calc.Distances(bally, ballx, YellowrobotY[id], YellowrobotX[id]);
+                //  Yellowangle[id] = calc.Angle(bally, ballx, YellowrobotY[id], YellowrobotX[id], YellowrobotOrient[id]);
+                //  Yelloworient[id] = calc.orient(Yellowangle[id]);
+                //  Yellowangle[id] = path.routePlaning(YellowrobotX[id], YellowrobotY[id], Yellowdistance[id], Yellowangle[id], YellowrobotOrient[id]);
 
-//speed[id] = path.speed;
-              //  line = path.Route;
+
+                //speed[id] = path.speed;
+                //  line = path.Route;
             }
                
 

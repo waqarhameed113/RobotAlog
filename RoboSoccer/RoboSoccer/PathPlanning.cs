@@ -48,28 +48,8 @@ namespace RoboSoccer
             }
 
         }
-        public double routePlaning(double _robot_X,double _robot_Y,double _distance, double _angle, double _orient)
-        {
-
-                FinalAngle = _angle;
-                if (FinalDistance!=_distance)
-                speed = (int)pid.PID_Output(0.05, 0.015, 0.0001, _distance, 1);
-                else
-                speed = (int)pid.PID_Output(0.05, 0.015, 0.0001, FinalDistance, 0);
-                FinalDistance = _distance;
-            
-                       
-            return FinalAngle;
-            
-        }
-        public double LinearAngualPlanning(double _robot_X, double _robot_Y, double _orient, double target_X, double target_Y, double O_robot_x, double O_robot_y, double O_balldistance)
-        {
-
-
-
-
-            return FinalAngle;
-        }
+      
+   
 
         public double pointPlaning(double _robot_X, double _robot_Y, double _orient)
         {
@@ -93,6 +73,11 @@ namespace RoboSoccer
             preRoute = Route;
             
             return FinalAngle;
+        }
+
+        void pathfollower()
+        {
+            
         }
 
   
