@@ -66,10 +66,12 @@ namespace RoboSoccer
         }
 public  void getFeedback()
         {
-            
-            getData();
-            Controller.pathDecision();
-
+            while (true)
+            {
+                getData();
+                Controller.pathDecision();
+                Thread.Sleep(20);
+            }
 
 
 
@@ -169,7 +171,7 @@ public  void getFeedback()
                 YellowrobotY[id] = pakt.detection.robots_yellow[i].y;
                 YellowrobotOrient[id] = pakt.detection.robots_yellow[i].orientation * 180 / Math.PI;
 
-                Controller.setYellowBots(id, YellowrobotX[id], YellowrobotX[id], YellowrobotOrient[id]);
+                Controller.setYellowBots(id, YellowrobotX[id], YellowrobotY[id], YellowrobotOrient[id]);
                // Yellowdistance[id] = calc.Distances(bally, ballx, YellowrobotY[id], YellowrobotX[id]);
               //  Yellowangle[id] = calc.Angle(bally, ballx, YellowrobotY[id], YellowrobotX[id], YellowrobotOrient[id]);
               //  Yelloworient[id] = calc.orient(Yellowangle[id]);

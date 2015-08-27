@@ -17,6 +17,7 @@ namespace RoboSoccer
 
         public int noYellowBots;
         public double[] yellowRobotX, yellowRobotY, yellowRobotOrient;
+        public int pathcomplete = 0;
 
 
         public int BluerobotInField;
@@ -84,11 +85,12 @@ namespace RoboSoccer
             //  motion.PathFinding(bally, ballx, BluerobotY[Striker], BluerobotX[Striker], BluerobotOrient[Striker], BluerobotY[Goalkee], BluerobotX[Goalkee], (pakt.detection.robots_blue.Count + pakt.detection.robots_yellow.Count));
             if (Blueteam == 1)
             {
-                motionPlaning.PathFinding(Blueteam,bally, ballx, blueRobotY, blueRobotX, blueRobotOrient, Striker, yellowRobotX, yellowRobotY, BluerobotInField + YellowrobotInField);
+                motionPlaning.PathFinding(Blueteam,bally, ballx, blueRobotY, blueRobotX, blueRobotOrient, Striker, yellowRobotY, yellowRobotX, BluerobotInField + YellowrobotInField);
             }
             else
-                motionPlaning.PathFinding(Blueteam,bally, ballx, yellowRobotY, yellowRobotX, yellowRobotOrient, Striker, blueRobotX, blueRobotY, BluerobotInField + YellowrobotInField);
-           
+                motionPlaning.PathFinding(Blueteam,bally, ballx, yellowRobotY, yellowRobotX, yellowRobotOrient, Striker, blueRobotY, blueRobotX, BluerobotInField + YellowrobotInField);
+
+            pathcomplete = 1; 
         }
 
 

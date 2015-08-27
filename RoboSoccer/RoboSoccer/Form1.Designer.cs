@@ -48,6 +48,7 @@
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.richTextBox3 = new System.Windows.Forms.RichTextBox();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.timer3 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -119,7 +120,7 @@
             this.chart1.Location = new System.Drawing.Point(2, 344);
             this.chart1.Name = "chart1";
             series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastPoint;
             series1.Legend = "Legend1";
             series1.Name = "Trejectory";
             series2.ChartArea = "ChartArea1";
@@ -159,16 +160,21 @@
             this.chart1.Series.Add(series5);
             this.chart1.Series.Add(series6);
             this.chart1.Series.Add(series7);
-            this.chart1.Size = new System.Drawing.Size(1231, 385);
+            this.chart1.Size = new System.Drawing.Size(1231, 546);
             this.chart1.TabIndex = 5;
             this.chart1.Text = "chart1";
             this.chart1.Click += new System.EventHandler(this.chart1_Click);
+            // 
+            // timer3
+            // 
+            this.timer3.Interval = 1200;
+            this.timer3.Tick += new System.EventHandler(this.timer3_Tick_1);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1245, 741);
+            this.ClientSize = new System.Drawing.Size(1268, 902);
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.richTextBox3);
             this.Controls.Add(this.button2);
@@ -195,6 +201,7 @@
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.RichTextBox richTextBox3;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.Timer timer3;
     }
 }
 
