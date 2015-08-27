@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ProtoBuf;
+using System.Threading;
 namespace RoboSoccer
 {
     public partial class Form1 : Form
@@ -17,27 +18,40 @@ namespace RoboSoccer
 
         // protos.tutorial.messages_robocup_ssl_wrapper.SSL_WrapperPacket my_pakt = new protos.tutorial.messages_robocup_ssl_wrapper.SSL_WrapperPacket();
        public static FeedBack f1;
+        Thread abc;
+       
         public Form1()
         {
             InitializeComponent();
 
-
-        }
+                  }
 
         private void button1_Click(object sender, EventArgs e)
         {
+             
+            
             if (timer1.Enabled != true)
+            {
                 timer1.Enabled = true;
+                abc.Start();
+
+            }
+
             else
+            {
                 timer1.Enabled = false;
+                abc.Abort();
 
-
+            }
+            
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
             timer1.Enabled = false;
-
-            f1.getFeedback();
+           
+               
+            // f1.getFeedback();
+           
             richTextBox1.Text = "Ball_X "+((int)f1.ballx).ToString()+"\n";
             richTextBox1.Text += "Ball_Y " + ((int)f1.bally).ToString() + "\n";
             richTextBox1.Text += "Robot_Id " + f1.BluerobotID[1].ToString()+'\n';
@@ -51,24 +65,25 @@ namespace RoboSoccer
              richTextBox2.Text = f1.speed[1].ToString() + ',' + ((int)f1.Blueorient[1]).ToString() + ',' + ((int)f1.Blueangle[1]).ToString() + ",80,0\n"+ f1.line.ToString()+'\n';
             richTextBox2.Text += f1.R2R_distance[1].ToString();
 
+       /*   
             richTextBox3.Text = "X ";
-            richTextBox3.Text += f1.motion.x[0].ToString()+' ';
+            richTextBox3.Text += f1.Controller.motionPlaning.x[0].ToString()+ ' ';//f1.motion.x[0].ToString()+' ';
            
-            for (int i=1; i<f1.motion.x.Length;i++)
+            for (int i=1; i< f1.Controller.motionPlaning.x.Length; i++)
             {
-                richTextBox3.Text += f1.motion.x[i].ToString() + ' ';
+                richTextBox3.Text += f1.Controller.motionPlaning.x[i].ToString() + ' ';
               
             }
 
             richTextBox3.Text += "\n\nY ";
-            richTextBox3.Text += f1.motion.y[0].ToString() + ' ';
+            richTextBox3.Text += f1.Controller.motionPlaning.y[0].ToString() + ' ';
 
-            for (int i = 1; i < f1.motion.y.Length; i++)
+            for (int i = 1; i < f1.Controller.motionPlaning.x.Length; i++)
             {
                 
-                richTextBox3.Text += f1.motion.y[i].ToString() + ' ';
+                richTextBox3.Text += f1.Controller.motionPlaning.x[i].ToString() + ' ';
             }
-          
+         */ 
             timer1.Enabled = true;
 
             
@@ -78,6 +93,7 @@ namespace RoboSoccer
         private void Form1_Load_1(object sender, EventArgs e)
         {
             f1 = new FeedBack();
+            abc = new Thread(f1.getFeedback);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -106,6 +122,8 @@ namespace RoboSoccer
         private void timer2_Tick(object sender, EventArgs e)
         {
             timer2.Enabled = false;
+            if (f1.pakt.detection.robots_blue.Count == 0)
+                f1.speed[1] = 0;
             if (serialPort1.IsOpen)
             {
 
@@ -121,17 +139,116 @@ namespace RoboSoccer
             timer2.Enabled = true;
         }
 
-        private void chart1_Click(object sender, EventArgs e)
+        public void chart1_Click(object sender, EventArgs e)
         {
+            
             chart1.Series["Trejectory"].Points.Clear();
-           // chart1.Series["Trejectory"].Points.;
-            for (int i = 0; i < f1.motion.x.Length; i++)
+            chart1.Series["ball"].Points.Clear();
+            chart1.Series["blueBot1"].Points.Clear();
+            chart1.Series["blueBot0"].Points.Clear();
+            chart1.Series["yellowBot1"].Points.Clear();
+            chart1.Series["yellowBot0"].Points.Clear();
+            //chart1.Series["Trejectory"].Points.Clear();
+
+            chart1.Series["abc"].Points.AddXY(-3000, 1500);
+            chart1.Series["abc"].Points.AddXY(3000, -1500);
+            
+           
+
+            
+
+            if (f1.pakt.detection.balls.Count>0)
+
             {
-                chart1.Series["Trejectory"].Points.AddXY(f1.motion.x[i], f1.motion.y[i]);
+                chart1.Series["ball"].Points.AddXY(f1.ballx, f1.bally);
+                chart1.Series["ball"].Label = "ball";
             }
+            if (f1.pakt.detection.robots_blue.Count>0)
+            {
+                if (f1.BluerobotX[1] != 0)
+                {
+                    chart1.Series["blueBot1"].Points.AddXY(f1.BluerobotX[1], f1.BluerobotY[1]);
+                    chart1.Series["blueBot1"].Label = "bot 1";
+                    chart1.Series["blueBot1"].Color = Color.Blue;
+                }
+
+                if (f1.BluerobotX[0] != 0)
+                {
+                    chart1.Series["blueBot0"].Points.AddXY(f1.BluerobotX[0], f1.BluerobotY[0]);
+                    chart1.Series["blueBot0"].Label = "bot 0";
+                    chart1.Series["blueBot0"].Color = Color.Blue;
+                    chart1.Series["blueBot0"].Points.AddXY(f1.BluerobotX[2], f1.BluerobotY[2]);
+                    chart1.Series["blueBot0"].Label = "bot 0";
+                    chart1.Series["blueBot0"].Color = Color.Blue;
+                }
+
+                
+                
+            }
+
+            if (f1.pakt.detection.robots_yellow.Count>0)
+            {
+                if (f1.YellowrobotX[1] != 0)
+                {
+                    chart1.Series["yellowBot1"].Points.AddXY(f1.YellowrobotX[1], f1.YellowrobotY[1]);
+                    chart1.Series["yellowBot1"].Label = "bot 1";
+                    chart1.Series["yellowBot1"].Color = Color.Yellow;
+                }
+                if (f1.YellowrobotX[0] != 0)
+                {
+                    chart1.Series["yellowBot0"].Points.AddXY(f1.YellowrobotX[0], f1.YellowrobotY[0]);
+                    chart1.Series["yellowBot0"].Label = "bot 0";
+                    chart1.Series["yellowBot0"].Color = Color.Yellow;
+                }
+                
+            }
+            // chart1.Series["Trejectory"].Points.;
+            for (int i = 0; i < f1.Controller.motionPlaning.x.Length; i++)
+            {
+                chart1.Series["Trejectory"].Points.AddXY(f1.Controller.motionPlaning.x[i], f1.Controller.motionPlaning.y[i]);
+            }
+            chart1.Series["abc"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
             chart1.Series["Trejectory"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            chart1.Series["Trejectory"].Color = Color.Blue;
+            chart1.Series["Trejectory"].Color = Color.Red;
+            chart1.Series["ball"].Color = Color.OrangeRed;
+            
+
+
+        }
+
+        
+        private void richTextBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void closing(object sender, FormClosingEventArgs e)
+        {
+            
+            if (serialPort1.IsOpen)
+            {
+                try
+                {
+                    serialPort1.WriteLine("0,0,0,0");
+                }
+                catch { }
+                serialPort1.Close();
+
+            }
+            
+           
+
+            timer1.Enabled = false;
+            timer2.Enabled = false;
+           
+
+        }
+
+        private void timer3_Tick(object sender, EventArgs e)
+        {  
+
         }
     }
     }
+    
 

@@ -95,63 +95,9 @@ namespace RoboSoccer
             return FinalAngle;
         }
 
-  /*      public double pointPlaning(double _robot_X, double _robot_Y, double _orient, double _ball_x,double _ball_y,double O_robot_x,double O_robot_y,double O_balldistance,int newT)
-        {
-
-
-            // Newpath.newPath(500, -1700, -50, 1200,  -1700 ,-1600,_robot_X,_robot_Y,_orient);
-            //Newpath.newPath(600, O_robot_x, O_robot_y, O_balldistance, _ball_x, _ball_y, _robot_X, _robot_Y, _orient);
-            if (changepath == 1 || Newpath.Angle.Count == 0 || newT==1)
-            { 
-                Newpath.Angle.Clear();
-            Newpath.Point_distance.Clear();
-                Newpath.newPath(1000, O_robot_x, O_robot_y, O_balldistance, _ball_x, _ball_y, _robot_X, _robot_Y, _orient);
-                changepath = 0;
-                index = 0;
-                Xpoint = new double[Newpath.Angle.Count];
-                Ypoint = new double[Newpath.Angle.Count];
-
-                for (int i = 0; i < Newpath.Angle.Count ; i++) 
-                {
-                    Xpoint[i] = Newpath.x[i];
-                    Ypoint[i] = Newpath.y[i];
-                }
-            }
-            
-            FinalAngle = (double)Newpath.Angle.Peek();
-            FinalDistance = (double)Newpath.Point_distance.Peek();
-             Rob_P_dist = cal.Distances(Ypoint[index], Xpoint[index], _robot_Y, _robot_X);
-            FinalAngle = cal.Angle(Ypoint[index], Xpoint[index], _robot_Y, _robot_X,_orient);
-
-            if (Rob_P_dist<800)
-            {
-                index++;
-                Newpath.Angle.Dequeue();
-                Newpath.Point_distance.Dequeue();
-            }
-
-             if (index != Route)
-            speed = (int)pid.PID_Output(0.15, 0.015, 0.0001, FinalDistance, 1);
-             else
-                speed = (int)pid.PID_Output(0.15, 0.015, 0.0001, FinalDistance, 0);
-            Route = index;
-            if (Newpath.Angle.Count == 0)
-                pathcomplete = 1;
-            else
-                pathcomplete = 0;
-
-            return FinalAngle;
-
-
-        }
-    */
+  
 
     }
 
 
         }
-
-
-
-
-

@@ -60,6 +60,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="KalmanFilter.cs" />
     <Compile Include="messages_robocup_ssl_detection.cs" />
     <Compile Include="messages_robocup_ssl_geometry.cs" />
     <Compile Include="messages_robocup_ssl_refbox_log.cs" />
