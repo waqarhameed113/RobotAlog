@@ -34,10 +34,8 @@ namespace RoboSoccer
         const int noOfRobotYellow = 4;
         public int c_radius;
         public Calculation calc;
-        public PathPlanning path;
-        public Control Controller;
-        public  ObstacleTrejectory motion;
-        public PathPlanner trajectory;
+          public Control Controller;
+       
         public int line;
        
         int a = 0;
@@ -59,10 +57,10 @@ namespace RoboSoccer
             Yelloworient = new double[noOfRobot];
             /////////////////////////////////////////
             calc = new Calculation();
-            path = new PathPlanning();
+           
             Controller = new Control(noOfRobot,Striker,Goalkee,Mybotblue);
-            trajectory = new PathPlanner(noOfRobot, Striker, Goalkee, Mybotblue);
-            motion = new ObstacleTrejectory();
+            
+           
            
             
         }
@@ -70,6 +68,8 @@ public  void getFeedback()
         {
            
                 getData();
+            Controller.PathChanger();
+            Controller.SetTarget();
    
 
         }
@@ -100,7 +100,7 @@ public  void getFeedback()
                 ballx = pakt.detection.balls[0].x;
                 bally = pakt.detection.balls[0].y;
                 Controller.setBall(ballx, bally);
-                trajectory.setBall(ballx, bally);
+               
             }
             
             for (int i = 0; i < pakt.detection.robots_blue.Count; i++)
@@ -112,10 +112,10 @@ public  void getFeedback()
                 BluerobotOrient[id] = pakt.detection.robots_blue[i].orientation * 180 / Math.PI;
 
                 Controller.setBlueBots(id, BluerobotX[id], BluerobotY[id], BluerobotOrient[id]);
-                trajectory.setBlueBots(id, BluerobotX[id], BluerobotY[id], BluerobotOrient[id]);
+               
                 //      Bluedistance[id] = calc.Distances(bally, ballx, BluerobotY[id], BluerobotX[id]);
-                //      Blueangle[id] = calc.Angle(bally, ballx, BluerobotY[id], BluerobotX[id], BluerobotOrient[id]);
-                //      Blueorient[id] = calc.orient(Blueangle[id]);
+                     Blueangle[id] = calc.Angle(bally, ballx, BluerobotY[id], BluerobotX[id], BluerobotOrient[id]);
+                      Blueorient[id] = calc.orient(Blueangle[id]);
                 //      Blueangle[id] = path.routePlaning(BluerobotX[id], BluerobotY[id], Bluedistance[id], Blueangle[id], BluerobotOrient[id]);
 
                 //      Bluedistance[id] = path.FinalDistance;
@@ -144,7 +144,7 @@ public  void getFeedback()
                 YellowrobotOrient[id] = pakt.detection.robots_yellow[i].orientation * 180 / Math.PI;
 
                 Controller.setYellowBots(id, YellowrobotX[id], YellowrobotY[id], YellowrobotOrient[id]);
-                trajectory.setYellowBots(id, YellowrobotX[id], YellowrobotY[id], YellowrobotOrient[id]);
+                
                 // Yellowdistance[id] = calc.Distances(bally, ballx, YellowrobotY[id], YellowrobotX[id]);
                 //  Yellowangle[id] = calc.Angle(bally, ballx, YellowrobotY[id], YellowrobotX[id], YellowrobotOrient[id]);
                 //  Yelloworient[id] = calc.orient(Yellowangle[id]);

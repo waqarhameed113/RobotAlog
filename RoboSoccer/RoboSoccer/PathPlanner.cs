@@ -9,6 +9,7 @@ namespace RoboSoccer
     public class PathPlanner
     {
         public double ballx, bally;
+        public double targetX, targetY;
         public int Striker, Goalkey, Blueteam;
 
         public int noBlueBots;
@@ -16,7 +17,7 @@ namespace RoboSoccer
 
         public int noYellowBots;
         public double[] yellowRobotX, yellowRobotY, yellowRobotOrient;
-        public int pathcomplete = 0;
+        public int pathcompleteforGraph = 0;
 
 
         public int BluerobotInField;
@@ -26,13 +27,14 @@ namespace RoboSoccer
         public PathPlanning pointPlaning;
         public ObstacleTrejectory motionPlaning;
         public PathFollower trajectory;
-        public Thread abc;
+        public Thread trejectoryPloting;
+        public int newPathComplete;
 
            public PathPlanner(int noofbots, int striker, int goalkey, int team)
                 {
             blueRobotX = new double[noofbots];
-            blueRobotY = new double[noofbots];
-            blueRobotOrient = new double[noofbots];
+            blueRobotY = new double[noofbots];                                    
+            blueRobotOrient = new double[noofbots];    
             yellowRobotX = new double[noofbots];
             yellowRobotY = new double[noofbots];
             yellowRobotOrient = new double[noofbots];
@@ -41,14 +43,14 @@ namespace RoboSoccer
             Blueteam = team;
             trajectory = new PathFollower();
             motionPlaning = new ObstacleTrejectory();
-            abc = new Thread(pathDraw);
-            abc.Start();
+            trejectoryPloting = new Thread(pathDraw);
+            
         }
 
 
-        public void setBall(double _ballx, double _bally)
+        public void setBall(double target_x, double target_y)
         {
-            ballx = _ballx; bally = _bally;
+            targetX = target_x; targetY = target_y;
         }
 
         public void setBlueBots(int id, double robotX, double robotY, double robotOrient)
@@ -70,7 +72,14 @@ namespace RoboSoccer
         }
 
 
+        public void setTarget(double target_y,double target_x)
+        {
+            targetY = target_x;
+            targetX = target_y;
+            
 
+
+        }
      
 
         public void pathDraw()
@@ -82,14 +91,16 @@ namespace RoboSoccer
                 //  motion.PathFinding(bally, ballx, BluerobotY[Striker], BluerobotX[Striker], BluerobotOrient[Striker], BluerobotY[Goalkee], BluerobotX[Goalkee], (pakt.detection.robots_blue.Count + pakt.detection.robots_yellow.Count));
                 if (Blueteam == 1)
                 {
-                    motionPlaning.PathFinding(Blueteam, bally, ballx, blueRobotY, blueRobotX, blueRobotOrient, Striker, yellowRobotY, yellowRobotX, BluerobotInField + YellowrobotInField);
+                    motionPlaning.PathFinding(Blueteam, targetY,targetX, blueRobotY, blueRobotX, blueRobotOrient, Striker, yellowRobotY, yellowRobotX, BluerobotInField + YellowrobotInField);
                 }
                 else
-                    motionPlaning.PathFinding(Blueteam, bally, ballx, yellowRobotY, yellowRobotX, yellowRobotOrient, Striker, blueRobotY, blueRobotX, BluerobotInField + YellowrobotInField);
+                    motionPlaning.PathFinding(Blueteam, targetY, targetX, yellowRobotY, yellowRobotX, yellowRobotOrient, Striker, blueRobotY, blueRobotX, BluerobotInField + YellowrobotInField);
 
-               
-                pathcomplete = 1;
-                Thread.Sleep(200);
+
+
+                newPathComplete = 1;
+                pathcompleteforGraph = 1;
+                Thread.Sleep(100);
             }
         }
 

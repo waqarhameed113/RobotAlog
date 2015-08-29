@@ -33,10 +33,10 @@ namespace RoboSoccer
             if (timer1.Enabled != true)
             {
                 timer1.Enabled = true;
-           
-               
+
+                f1.Controller.drawPath.trejectoryPloting.Start();
                 timer3.Enabled = true;
-                timer3.Interval = 1000;
+             
 
             }
 
@@ -66,8 +66,10 @@ namespace RoboSoccer
             richTextBox1.Text += "Orient " + ((int)f1.Blueorient[1]).ToString() + '\n';
 
                         //    richTextBox2.Text = "Speed,Rotate,Angle,R_Magnitude,garbage\n";
-             richTextBox2.Text = f1.speed[1].ToString() + ',' + ((int)f1.Blueorient[1]).ToString() + ',' + ((int)f1.Blueangle[1]).ToString() + ",80,0\n"+ f1.line.ToString()+'\n';
-            richTextBox2.Text += f1.R2R_distance[1].ToString();
+             richTextBox2.Text = f1.Controller.pathFollower.speed.ToString() + ',' + ((int)f1.Blueorient[1]).ToString() + ',' +( (int)f1.Controller.pathFollower.angle).ToString() + ",80,0\n"+ f1.line.ToString()+'\n';
+        //   if (f1.Controller.pathFollower.newpathIndication==1)
+          // richTextBox4.Text = "X  "+f1.Controller.pathFollower.X[f1.Controller.pathFollower.i].ToString()+"  Y  " + f1.Controller.pathFollower.Y[f1.Controller.pathFollower.i].ToString() + "\nDistance"+ f1.Controller.pathFollower.TotalDistance.ToString();
+           
 
               
      
@@ -87,7 +89,7 @@ namespace RoboSoccer
         {
             if (!serialPort1.IsOpen)
             {
-                serialPort1.PortName = "COM3";
+                serialPort1.PortName = "COM4";
                 serialPort1.BaudRate = 115200;
                 serialPort1.Open();
 
@@ -109,14 +111,13 @@ namespace RoboSoccer
         private void timer2_Tick(object sender, EventArgs e)
         {
             timer2.Enabled = false;
-            if (f1.pakt.detection.robots_blue.Count == 0)
-                f1.speed[1] = 0;
+           
             if (serialPort1.IsOpen)
             {
 
                 try
                 {
-                    serialPort1.WriteLine(f1.speed[1].ToString()+','+((int)f1.Blueorient[1]).ToString()+',' + ((int)f1.Blueangle[1]).ToString() + ",80,0");
+                    serialPort1.WriteLine(f1.Controller.pathFollower.speed.ToString() + ',' + ((int)f1.Blueorient[1]).ToString() + ',' + ((int)f1.Controller.pathFollower.angle).ToString() + ",50,0");
          //           richTextBox2.Text = f1.speed.ToString() + ',' + ((int)f1.orient[5]).ToString() + ',' + ((int)f1.angle[5]).ToString() + ",60,0";
                 }
                 catch { }
@@ -241,7 +242,8 @@ namespace RoboSoccer
 
         private void closing(object sender, FormClosingEventArgs e)
         {
-          
+            f1.Controller.pathFollower.pathfollower.Abort();
+            f1.Controller.drawPath.trejectoryPloting.Abort();                          
             if (serialPort1.IsOpen)
             {
                 try
@@ -265,7 +267,7 @@ namespace RoboSoccer
 
         private void timer3_Tick_1(object sender, EventArgs e)
         {
-            if (f1.Controller.drawPath.pathcomplete == 1)
+            if (f1.Controller.drawPath.pathcompleteforGraph == 1)
             {
                 timer3.Enabled = false;
                 richTextBox3.Text = "X ";
@@ -366,7 +368,7 @@ namespace RoboSoccer
                 chart1.Series["Trejectory"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
                 chart1.Series["Trejectory"].Color = Color.Red;
                 chart1.Series["ball"].Color = Color.OrangeRed;
-                    f1.Controller.drawPath.pathcomplete = 0;
+                    f1.Controller.drawPath.pathcompleteforGraph = 0;
             }
             timer3.Enabled = true;
         }

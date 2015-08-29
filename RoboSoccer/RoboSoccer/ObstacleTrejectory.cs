@@ -19,7 +19,7 @@ namespace RoboSoccer
         Calculation cal;
         public double[] x;
         public double[] y;
-        public const int stepsize = 50;
+        public const int stepsize = 30;
         public double angle;
         public double Totaldistance;
         public int Xstep, Ystep;
@@ -118,8 +118,8 @@ namespace RoboSoccer
             }
             else
             {
-                obstacleBlue = __robotx.Length;
-                obstacleYellow = O_robotx.Length - 1;
+                obstacleBlue = __robotx.Length-1;
+                obstacleYellow = O_robotx.Length;
                  doneBlue= new int[O_robotx.Length];
                  doneYellow = new int[__robotx.Length];
                 P_O_B = new double[O_robotx.Length]; // point to obstacle blue distance
@@ -150,7 +150,12 @@ namespace RoboSoccer
 
             while (point_targetdistance>400)
             {
-          
+                   if (XCC.Count>3000)
+                {
+                    XCC.Clear();
+                    YCC.Clear();
+                    break;
+                }
                 if (target_x > X && target_y > Y)
                 {
                     X += Xstep;
@@ -201,10 +206,10 @@ namespace RoboSoccer
                             P_O_B[i] = cal.Distances(__roboty[i], __robotx[i], (double)YCC.Peek(), (double)XCC.Peek());
                             obstacal_targetdistance = cal.Distances(target_y, target_x, __roboty[i], __robotx[i]);
                         
-                        if (P_O_B[i]<400 && obstacal_targetdistance < strikerDistance)
+                        if (P_O_B[i]<900 && obstacal_targetdistance < point_targetdistance)
                              {
                             doneBlue[i] = 1;
-                            newPath(400,i, __robotx, __roboty, obstacal_targetdistance, target_x, target_y, (double)XCC.Peek(), (double)YCC.Peek());
+                            newPath(800,i, __robotx, __roboty, obstacal_targetdistance, target_x, target_y, (double)XCC.Peek(), (double)YCC.Peek());
                             angle = cal.Angle(target_y, target_x, (double)YCC.Peek(), (double)XCC.Peek());
                             Xstep = (int)(stepsize * Math.Cos(angle * Math.PI / 180));
                             Ystep = (int)(stepsize * Math.Sin(angle * Math.PI / 180));
@@ -261,6 +266,9 @@ namespace RoboSoccer
                 YCC.Pop();
 
             }
+            int a = 0;
+            XCC.Clear();
+            YCC.Clear();
             for (int j = 0;j<x.Length;j++)
             {
                 if (j == 0)
