@@ -39,7 +39,7 @@ namespace RoboSoccer
                     newpathIndication = 0;
                 }
 
-                if (pointDistance < 100 && i < X.Length-1)
+                if (pointDistance < 300 && i < X.Length-1)
                 {
                     i++;
 
@@ -48,10 +48,10 @@ namespace RoboSoccer
                 pointDistance = cal.Distances(Y[i], X[i], robotX, robotY);
 
                 angle = cal.Angle(Y[i], X[i], robotY, robotX, robotOrientation);
-                if (TotalDistance <= 100)
+                if (TotalDistance < 600)
                     speed = (int)pid.PID_Output(0.05, 0.015, 0.0001, TotalDistance, 1);
                 else
-                    speed = (int)pid.PID_Output(0.08, 0.015, 0.0001, TotalDistance, 0);
+                    speed = (int)pid.PID_Output(0.01, 0.04, 0.0001, TotalDistance, 0);
 
                 prei = i;
                 Thread.Sleep(20);

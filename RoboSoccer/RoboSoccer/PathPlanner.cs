@@ -24,9 +24,9 @@ namespace RoboSoccer
         public int YellowrobotInField;
 
 
-        public PathPlanning pointPlaning;
+        
         public ObstacleTrejectory motionPlaning;
-        public PathFollower trajectory;
+        
         public Thread trejectoryPloting;
         public int newPathComplete;
 
@@ -41,7 +41,7 @@ namespace RoboSoccer
             Striker = striker;
             Goalkey = goalkey;
             Blueteam = team;
-            trajectory = new PathFollower();
+            
             motionPlaning = new ObstacleTrejectory();
             trejectoryPloting = new Thread(pathDraw);
             

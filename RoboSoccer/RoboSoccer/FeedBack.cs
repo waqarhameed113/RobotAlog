@@ -68,8 +68,8 @@ public  void getFeedback()
         {
            
                 getData();
-            Controller.PathChanger();
-            Controller.SetTarget();
+//Controller.PathChanger();
+ //           Controller.SetTarget();
    
 
         }

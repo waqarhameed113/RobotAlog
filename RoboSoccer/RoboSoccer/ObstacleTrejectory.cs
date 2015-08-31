@@ -19,7 +19,7 @@ namespace RoboSoccer
         Calculation cal;
         public double[] x;
         public double[] y;
-        public const int stepsize = 30;
+        public const int stepsize = 180;
         public double angle;
         public double Totaldistance;
         public int Xstep, Ystep;
@@ -232,10 +232,10 @@ namespace RoboSoccer
                         P_O_Y[i] = cal.Distances(O_roboty[i], O_robotx[i], (double)YCC.Peek(), (double)XCC.Peek());
                         obstacal_targetdistance = cal.Distances(target_y, target_x, O_roboty[i], O_robotx[i]);
 
-                        if (P_O_Y[i] < 400 && obstacal_targetdistance < strikerDistance)
+                        if (P_O_Y[i] < 900 && obstacal_targetdistance < point_targetdistance)
                         {
                             doneYellow[i] = 1;
-                            newPath(400, i,  O_robotx, O_roboty, obstacal_targetdistance, target_x, target_y, (double)XCC.Peek(), (double)YCC.Peek());
+                            newPath(800, i,  O_robotx, O_roboty, obstacal_targetdistance, target_x, target_y, (double)XCC.Peek(), (double)YCC.Peek());
                             angle = cal.Angle(target_y, target_x, (double)YCC.Peek(), (double)XCC.Peek());
                             Xstep = (int)(stepsize * Math.Cos(angle * Math.PI / 180));
                             Ystep = (int)(stepsize * Math.Sin(angle * Math.PI / 180));

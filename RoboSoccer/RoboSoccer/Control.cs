@@ -26,10 +26,11 @@ namespace RoboSoccer
 
         
         
-        
+        public GoalKee goalkeeobj;
         public ObstacleTrejectory motionPlaning;
         public PathFollower pathFollower;
-        public PathPlanner drawPath;
+        public PathPlanner StrikerPathPlanning;
+   
         public strategic Strategic;
         
         public Control(int noofbots,int striker,int goalkey,int team)
@@ -45,8 +46,10 @@ namespace RoboSoccer
             Blueteam = team;
             pathFollower = new PathFollower();
             Strategic = new strategic();
+
+            goalkeeobj = new GoalKee(Goalkey);
+            StrikerPathPlanning = new PathPlanner(noofbots, striker, goalkey, team);
             
-            drawPath = new PathPlanner(noofbots, striker, goalkey, team);
              
 
         }
@@ -65,7 +68,8 @@ namespace RoboSoccer
             blueRobotX[id] = robotX;
             blueRobotY[id] = robotY;
             blueRobotOrient[id] = robotOrient;
-            drawPath.setBlueBots(id, robotX, robotY, robotOrient);
+            StrikerPathPlanning.setBlueBots(id, robotX, robotY, robotOrient);
+            
         }
 
 
@@ -75,7 +79,8 @@ namespace RoboSoccer
             yellowRobotX[id] = robotX;
             yellowRobotY[id] = robotY;
             yellowRobotOrient[id] = robotOrient;
-            drawPath.setYellowBots(id, robotX, robotY, robotOrient);
+            StrikerPathPlanning.setYellowBots(id, robotX, robotY, robotOrient);
+           
 
         }
 
@@ -96,12 +101,12 @@ namespace RoboSoccer
             Target_x = Strategic.X[Strategic.i];
             Target_y = Strategic.Y[Strategic.i];
 
-            drawPath.targetX = Target_x;
-            drawPath.targetY = Target_y;
+            StrikerPathPlanning.targetX = Target_x;
+            StrikerPathPlanning.targetY = Target_y;
         }
           public void PathChanger()
         {
-            if (drawPath.newPathComplete==1)
+            if (StrikerPathPlanning.newPathComplete==1)
             {
                 if (i == 0)
                 {
@@ -110,16 +115,16 @@ namespace RoboSoccer
                 }
 
                 pathFollower.newpathIndication = 1;
-                pathFollower.X = new double[drawPath.motionPlaning.x.Length];
-                pathFollower.Y = new double[drawPath.motionPlaning.x.Length];
-                pathFollower.X = drawPath.motionPlaning.x;
-                pathFollower.Y = drawPath.motionPlaning.y;
+                pathFollower.X = new double[StrikerPathPlanning.motionPlaning.x.Length];
+                pathFollower.Y = new double[StrikerPathPlanning.motionPlaning.x.Length];
+                pathFollower.X = StrikerPathPlanning.motionPlaning.x;
+                pathFollower.Y = StrikerPathPlanning.motionPlaning.y;
                 pathFollower.robotX = blueRobotX[Striker];
                 pathFollower.robotY = blueRobotY[Striker];
                 pathFollower.robotOrientation = blueRobotOrient[Striker];
-                pathFollower.TotalDistance = drawPath.motionPlaning.Totaldistance;
+                pathFollower.TotalDistance = StrikerPathPlanning.motionPlaning.Totaldistance;
 
-                drawPath.newPathComplete = 0;
+                StrikerPathPlanning.newPathComplete = 0;
                
             }
            
