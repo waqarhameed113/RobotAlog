@@ -21,7 +21,7 @@ namespace RoboSoccer
             {
             pid = new PID();
             pathfollower = new Thread(pathRunner);
-         //   pathfollower.Start();
+         
             cal = new Calculation();
             
             
@@ -53,7 +53,7 @@ namespace RoboSoccer
                 else
                     speed = (int)pid.PID_Output(0.01, 0.04, 0.0001, TotalDistance, 0);
 
-                prei = i;
+                
                 Thread.Sleep(20);
 
             }

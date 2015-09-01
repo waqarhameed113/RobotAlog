@@ -22,14 +22,14 @@ namespace RoboSoccer
 
         public int BluerobotInField;
         public int YellowrobotInField;
-
+        int i = 0;
 
         
         public ObstacleTrejectory motionPlaning;
         
         public Thread trejectoryPloting;
         public int newPathComplete;
-
+        public PathFollower pathFollower;
            public PathPlanner(int noofbots, int striker, int goalkey, int team)
                 {
             blueRobotX = new double[noofbots];
@@ -41,9 +41,10 @@ namespace RoboSoccer
             Striker = striker;
             Goalkey = goalkey;
             Blueteam = team;
-            
+            pathFollower = new PathFollower();
             motionPlaning = new ObstacleTrejectory();
             trejectoryPloting = new Thread(pathDraw);
+            
             
         }
 
@@ -80,7 +81,30 @@ namespace RoboSoccer
 
 
         }
-     
+        public void PathChanger()
+        {
+            if (newPathComplete == 1)
+            {
+                if (i == 0)
+                {
+                    pathFollower.pathfollower.Start();
+                    i = 1;
+                }
+
+                pathFollower.newpathIndication = 1;
+                pathFollower.X = new double[motionPlaning.x.Length];
+                pathFollower.Y = new double[motionPlaning.x.Length];
+                pathFollower.X = motionPlaning.x;
+                pathFollower.Y = motionPlaning.y;
+                pathFollower.robotX = blueRobotX[Striker];
+                pathFollower.robotY = blueRobotY[Striker];
+                pathFollower.robotOrientation = blueRobotOrient[Striker];
+                pathFollower.TotalDistance = motionPlaning.Totaldistance;
+
+                newPathComplete = 0;
+
+            }
+        }
 
         public void pathDraw()
         {                     

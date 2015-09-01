@@ -34,8 +34,8 @@ namespace RoboSoccer
             {
                 timer1.Enabled = true;
 
-                f1.Controller.StrikerPathPlanning.trejectoryPloting.Start();
-                timer3.Enabled = false;
+               f1.Controller.StrikerPathPlanning.trejectoryPloting.Start();
+                timer3.Enabled = true;
              
 
             }
@@ -66,7 +66,7 @@ namespace RoboSoccer
             richTextBox1.Text += "Orient " + ((int)f1.Blueorient[1]).ToString() + '\n';
 
                         //    richTextBox2.Text = "Speed,Rotate,Angle,R_Magnitude,garbage\n";
-             richTextBox2.Text = f1.Controller.pathFollower.speed.ToString() + ',' + ((int)f1.Blueorient[1]).ToString() + ',' +( (int)f1.Controller.pathFollower.angle).ToString() + ",80,0\n"+ f1.line.ToString()+'\n';
+             richTextBox2.Text = f1.Controller.StrikerPathPlanning.pathFollower.speed.ToString() + ',' + ((int)f1.Blueorient[1]).ToString() + ',' +( (int)f1.Controller.StrikerPathPlanning.pathFollower.angle).ToString() + ",80,0\n"+ f1.line.ToString()+'\n';
         //   if (f1.Controller.pathFollower.newpathIndication==1)
           // richTextBox4.Text = "X  "+f1.Controller.pathFollower.X[f1.Controller.pathFollower.i].ToString()+"  Y  " + f1.Controller.pathFollower.Y[f1.Controller.pathFollower.i].ToString() + "\nDistance"+ f1.Controller.pathFollower.TotalDistance.ToString();
            
@@ -117,7 +117,7 @@ namespace RoboSoccer
 
                 try
                 {
-                    serialPort1.WriteLine(f1.Controller.pathFollower.speed.ToString() + ',' + ((int)f1.Blueorient[1]).ToString() + ',' + ((int)f1.Controller.pathFollower.angle).ToString() + ",50,0");
+                    serialPort1.WriteLine(f1.Controller.StrikerPathPlanning.pathFollower.speed.ToString() + ',' + ((int)f1.Blueorient[1]).ToString() + ',' + ((int)f1.Controller.StrikerPathPlanning.pathFollower.angle).ToString() + ",50,0");
          //           richTextBox2.Text = f1.speed.ToString() + ',' + ((int)f1.orient[5]).ToString() + ',' + ((int)f1.angle[5]).ToString() + ",60,0";
                 }
                 catch { }
@@ -242,7 +242,7 @@ namespace RoboSoccer
 
         private void closing(object sender, FormClosingEventArgs e)
         {
-            f1.Controller.pathFollower.pathfollower.Abort();
+            f1.Controller.StrikerPathPlanning.pathFollower.pathfollower.Abort();
             f1.Controller.StrikerPathPlanning.trejectoryPloting.Abort();                          
             if (serialPort1.IsOpen)
             {

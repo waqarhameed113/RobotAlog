@@ -26,9 +26,9 @@ namespace RoboSoccer
 
         
         
-        public GoalKee goalkeeobj;
-        public ObstacleTrejectory motionPlaning;
-        public PathFollower pathFollower;
+        
+    
+         
         public PathPlanner StrikerPathPlanning;
    
         public strategic Strategic;
@@ -44,10 +44,10 @@ namespace RoboSoccer
             Striker = striker;
             Goalkey = goalkey;
             Blueteam = team;
-            pathFollower = new PathFollower();
+          
             Strategic = new strategic();
 
-            goalkeeobj = new GoalKee(Goalkey);
+            
             StrikerPathPlanning = new PathPlanner(noofbots, striker, goalkey, team);
             
              
@@ -59,7 +59,7 @@ namespace RoboSoccer
         {
             ball_x = _ballx; ball_y = _bally;
 
-         //   drawPath.setBall(ball_x, ball_y);
+            StrikerPathPlanning.setBall(ball_x, ball_y);
             
         }
       
@@ -104,29 +104,7 @@ namespace RoboSoccer
             StrikerPathPlanning.targetX = Target_x;
             StrikerPathPlanning.targetY = Target_y;
         }
-          public void PathChanger()
-        {
-            if (StrikerPathPlanning.newPathComplete==1)
-            {
-                if (i == 0)
-                {
-                    pathFollower.pathfollower.Start();
-                    i = 1;
-                }
-
-                pathFollower.newpathIndication = 1;
-                pathFollower.X = new double[StrikerPathPlanning.motionPlaning.x.Length];
-                pathFollower.Y = new double[StrikerPathPlanning.motionPlaning.x.Length];
-                pathFollower.X = StrikerPathPlanning.motionPlaning.x;
-                pathFollower.Y = StrikerPathPlanning.motionPlaning.y;
-                pathFollower.robotX = blueRobotX[Striker];
-                pathFollower.robotY = blueRobotY[Striker];
-                pathFollower.robotOrientation = blueRobotOrient[Striker];
-                pathFollower.TotalDistance = StrikerPathPlanning.motionPlaning.Totaldistance;
-
-                StrikerPathPlanning.newPathComplete = 0;
-               
-            }
+         
            
         }
        
@@ -134,5 +112,5 @@ namespace RoboSoccer
 
 
     }
-}
+
 

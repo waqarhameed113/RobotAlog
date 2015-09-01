@@ -38,7 +38,7 @@ namespace RoboSoccer
        
         public int line;
        
-        int a = 0;
+  
         public FeedBack()
         {
             sock.JoinMulticastGroup(IPAddress.Parse("224.5.23.2"), 50);
@@ -68,8 +68,8 @@ public  void getFeedback()
         {
            
                 getData();
-//Controller.PathChanger();
- //           Controller.SetTarget();
+            Controller.StrikerPathPlanning.PathChanger();
+            //Controller.SetTarget();
    
 
         }
