@@ -14,7 +14,7 @@ namespace RoboSoccer
         public int newpathIndication,speed;
         Calculation cal;
         public int i = 1;
-       
+        int prei;
         PID pid;
 
         public PathFollower()

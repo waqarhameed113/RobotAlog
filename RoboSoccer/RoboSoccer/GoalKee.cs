@@ -8,50 +8,44 @@ namespace RoboSoccer
 {
     public class GoalKee
     {
-        public double ballx, bally, goalkeyX, goalKeyY, distance, angle;
-        public double[] opponentX, opponentY;
-        public int index;
-        public int limit = 350;
+        double ballx, bally, goalkeyX, goalKeyY, distance, angle;
+        double[] opponentX, opponentY;             
+        int index;
+        int limit = 700;
         
         Calculation cal;
 
-        public GoalKee(int index__,double goalX)
+        public GoalKee(int index__)
         {
             index = index__;
             cal = new Calculation();
             goalkeyX = new double();
             goalKeyY = new double();
-            goalkeyX = goalX;
-            
+            goalkeyX = -2700;
         }
-        public void calculateY(int a)
+        public void calculateY()
         {
-            angle = cal.Angle(bally, ballx, opponentY[a], opponentX[a]);
-            goalKeyY = (goalkeyX - ballx) * Math.Tan(angle*Math.PI/180) +  bally;
-            
-            
-             
-                
-            
+            angle = cal.Angle(bally, ballx, opponentY[index], opponentX[index]);
+            goalKeyY = (opponentX[index] - ballx) * Math.Tan(angle) + goalKeyY;
         }
 
-        public void goalkeeper()
+        public void goalkeeper(double ball_x,double ball_y,double[] my_robotx , double[] my_roboty,double[] opponectx,double[] opponenty)
         {
+            ballx = ball_x;bally = ball_y;   opponentX = opponectx; opponentY = opponenty;
             
-            
-            for (int i = 0; i <opponentX.Length; i++)
+            for (int i = 0; i < opponectx.Length; i++)
             {
-                distance = cal.Distances(bally, ballx, opponentY[i], opponentX[i]);
+                distance = cal.Distances(bally, ballx, opponentY[index], opponentX[index]);
                 if (distance < 500)
                 {
-                    calculateY(i);
+                    calculateY();
                 }
-                
-            }
-
-            if (!( goalKeyY<limit && goalKeyY > -limit))
-            {
-                goalKeyY = bally;
+                else
+                {
+                    if (ball_y<limit&& ball_y>-limit)
+                    goalKeyY = ball_y;
+                  
+                }
             }
 
         }

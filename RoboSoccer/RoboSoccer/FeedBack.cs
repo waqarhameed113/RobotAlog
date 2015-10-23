@@ -68,11 +68,9 @@ public  void getFeedback()
         {
            
                 getData();
-            Controller.StrikerPlan.PathChanger();
-            Controller.GoalkeePlan.PathChanger();
-            Controller.update();
+            Controller.StrikerPathPlanning.PathChanger();
             //Controller.SetTarget();
-
+   
 
         }
      
@@ -96,7 +94,7 @@ public  void getFeedback()
 
             pakt = Serializer.Deserialize<protos.tutorial.messages_robocup_ssl_wrapper.SSL_WrapperPacket>(new System.IO.MemoryStream(data));
             Controller.botsInField(pakt.detection.robots_blue.Count, pakt.detection.robots_yellow.Count);
-              
+
             if (pakt.detection.balls.Count > 0)
             {
                 ballx = pakt.detection.balls[0].x;
