@@ -40,7 +40,7 @@ namespace RoboSoccer
             yellowRobotOrient = new double[noofbots];
             RobotID = R_ID;
             Blueteam = team;
-            pathFollower = new PathFollower();
+            pathFollower = new PathFollower(R_ID,team);
             motionPlaning = new ObstacleTrejectory();
             trejectoryPloting = new Thread(pathDraw);
             
@@ -91,6 +91,10 @@ namespace RoboSoccer
                 }
 
                 pathFollower.newpathIndication = 1;
+                pathFollower.blueRobotX = blueRobotX;
+                pathFollower.blueRobotY = blueRobotY;
+                pathFollower.yellowRobotX = yellowRobotX;
+                pathFollower.yellowRobotY = yellowRobotY;
                 pathFollower.X = new double[motionPlaning.x.Length];
                 pathFollower.Y = new double[motionPlaning.x.Length];
                 pathFollower.X = motionPlaning.x;
@@ -132,7 +136,7 @@ namespace RoboSoccer
 
                 newPathComplete = 1;
                 pathcompleteforGraph = 1;
-                Thread.Sleep(100);
+                Thread.Sleep(300);
             }
         }
 

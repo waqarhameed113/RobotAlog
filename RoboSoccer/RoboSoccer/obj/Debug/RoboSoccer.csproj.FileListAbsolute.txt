@@ -40,3 +40,4 @@ C:\Users\JailBreaker\Documents\GitHub\RobotAlog\RoboSoccer\RoboSoccer\obj\Debug\
 C:\Users\JailBreaker\Documents\GitHub\RobotAlog\RoboSoccer\RoboSoccer\obj\Debug\RoboSoccer.Form1.resources
 C:\Users\JailBreaker\Documents\GitHub\RobotAlog\RoboSoccer\RoboSoccer\obj\Debug\RoboSoccer.Properties.Resources.resources
 C:\Users\JailBreaker\Documents\GitHub\RobotAlog\RoboSoccer\RoboSoccer\obj\Debug\RoboSoccer.csproj.GenerateResource.Cache
+C:\Users\JailBreaker\Documents\GitHub\RobotAlog\RoboSoccer\RoboSoccer\obj\Debug\Form1.resources

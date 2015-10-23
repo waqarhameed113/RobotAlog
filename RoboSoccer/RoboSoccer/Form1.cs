@@ -11,8 +11,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ProtoBuf;
 using System.Threading;
-namespace RoboSoccer
-{
+
+
     public partial class Form1 : Form
     {
 
@@ -35,8 +35,8 @@ namespace RoboSoccer
                 timer1.Enabled = true;
 
                f1.Controller.StrikerPlan.trejectoryPloting.Start();
-                f1.Controller.GoalkeePlan.trejectoryPloting.Start();
-                timer3.Enabled = true;
+               f1.Controller.GoalkeePlan.trejectoryPloting.Start();
+                timer3.Enabled = false;
              
 
             }
@@ -66,14 +66,14 @@ namespace RoboSoccer
             richTextBox1.Text += "Angle " + ((int)f1.Blueangle[1]).ToString() + '\n';
             richTextBox1.Text += "Orient " + ((int)f1.Blueorient[1]).ToString() + '\n';
 
-                        //    richTextBox2.Text = "Speed,Rotate,Angle,R_Magnitude,garbage\n";
-             richTextBox2.Text = f1.Controller.StrikerPlan.pathFollower.speed.ToString() + ',' + ((int)f1.Blueorient[1]).ToString() + ',' +( (int)f1.Controller.StrikerPlan.pathFollower.angle).ToString() + ",80,0\n"+ f1.line.ToString()+'\n';
+            //    richTextBox2.Text = "Speed,Rotate,Angle,R_Magnitude,garbage\n";
+            richTextBox2.Text = f1.Controller.StrikerPlan.pathFollower.speed.ToString() + ',' + ((int)f1.Blueorient[1]).ToString() + ',' + ((int)f1.Controller.StrikerPlan.pathFollower.angle).ToString() + ",80,0," + f1.Controller.GoalkeePlan.pathFollower.speed.ToString() + ',' + ((int)f1.Blueorient[0]).ToString() + ',' + ((int)f1.Controller.GoalkeePlan.pathFollower.angle).ToString() + ",80,0";
         //   if (f1.Controller.pathFollower.newpathIndication==1)
-          // richTextBox4.Text = "X  "+f1.Controller.pathFollower.X[f1.Controller.pathFollower.i].ToString()+"  Y  " + f1.Controller.pathFollower.Y[f1.Controller.pathFollower.i].ToString() + "\nDistance"+ f1.Controller.pathFollower.TotalDistance.ToString();
-           
+        // richTextBox4.Text = "X  "+f1.Controller.pathFollower.X[f1.Controller.pathFollower.i].ToString()+"  Y  " + f1.Controller.pathFollower.Y[f1.Controller.pathFollower.i].ToString() + "\nDistance"+ f1.Controller.pathFollower.TotalDistance.ToString();
 
-              
-     
+
+
+
             timer1.Enabled = true;
 
             
@@ -118,7 +118,7 @@ namespace RoboSoccer
 
                 try
                 {
-                    serialPort1.WriteLine(f1.Controller.StrikerPlan.pathFollower.speed.ToString() + ',' + ((int)f1.Blueorient[1]).ToString() + ',' + ((int)f1.Controller.StrikerPlan.pathFollower.angle).ToString() + ",50,0");
+                    serialPort1.WriteLine(f1.Controller.StrikerPlan.pathFollower.speed.ToString() + ',' + ((int)f1.Blueorient[1]).ToString() + ',' + ((int)f1.Controller.StrikerPlan.pathFollower.angle).ToString() + ",20,0");
          //           richTextBox2.Text = f1.speed.ToString() + ',' + ((int)f1.orient[5]).ToString() + ',' + ((int)f1.angle[5]).ToString() + ",60,0";
                 }
                 catch { }
@@ -185,7 +185,7 @@ namespace RoboSoccer
                     chart1.Series["blueBot0"].Color = Color.Blue;
 
                 }
-
+             /*
                 if (f1.BluerobotX[2] != 0)
                 {
                     chart1.Series["blueBot0"].Points.AddXY(f1.BluerobotX[2], f1.BluerobotY[2]);
@@ -200,7 +200,7 @@ namespace RoboSoccer
                 }
                
                 
-
+               */
                 
                 
             }
