@@ -14,13 +14,12 @@ namespace RoboSoccer
         public double strikerDistance;
         public Stack XCC ;
         public Stack YCC ;
-        public int check = 0;
    //     public Queue Angle;
    //     public Queue Point_distance;
         Calculation cal;
         public double[] x;
         public double[] y;
-        public const int stepsize = 100;
+        public const int stepsize = 180;
         public double angle;
         public double Totaldistance;
         public int Xstep, Ystep;
@@ -63,7 +62,7 @@ namespace RoboSoccer
 
                 if (test == 1)
                 {
-                    angle += 10;
+                    angle += 15;
 
                     XCC.Push((_OBX[index] + _radius * Math.Cos(angle * Math.PI / 180)));
                     YCC.Push((_OBY[index] + _radius * Math.Sin(angle * Math.PI / 180)));
@@ -83,7 +82,7 @@ namespace RoboSoccer
                 }
                 else
                 {
-                    angle -= 10;
+                    angle -= 15;
 
                     XCC.Push((_OBX[index] + _radius * Math.Cos(angle * Math.PI / 180)));
                     YCC.Push((_OBY[index] + _radius * Math.Sin(angle * Math.PI / 180)));
@@ -94,7 +93,7 @@ namespace RoboSoccer
 
                 }
 
-                if (loopout > 20)
+                if (loopout > 10)
                     break;
             }
       }
