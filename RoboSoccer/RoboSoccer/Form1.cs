@@ -34,7 +34,8 @@ namespace RoboSoccer
             {
                 timer1.Enabled = true;
 
-               f1.Controller.StrikerPathPlanning.trejectoryPloting.Start();
+               f1.Controller.StrikerPlan.trejectoryPloting.Start();
+                f1.Controller.GoalkeePlan.trejectoryPloting.Start();
                 timer3.Enabled = true;
              
 
@@ -66,7 +67,7 @@ namespace RoboSoccer
             richTextBox1.Text += "Orient " + ((int)f1.Blueorient[1]).ToString() + '\n';
 
                         //    richTextBox2.Text = "Speed,Rotate,Angle,R_Magnitude,garbage\n";
-             richTextBox2.Text = f1.Controller.StrikerPathPlanning.pathFollower.speed.ToString() + ',' + ((int)f1.Blueorient[1]).ToString() + ',' +( (int)f1.Controller.StrikerPathPlanning.pathFollower.angle).ToString() + ",80,0\n"+ f1.line.ToString()+'\n';
+             richTextBox2.Text = f1.Controller.StrikerPlan.pathFollower.speed.ToString() + ',' + ((int)f1.Blueorient[1]).ToString() + ',' +( (int)f1.Controller.StrikerPlan.pathFollower.angle).ToString() + ",80,0\n"+ f1.line.ToString()+'\n';
         //   if (f1.Controller.pathFollower.newpathIndication==1)
           // richTextBox4.Text = "X  "+f1.Controller.pathFollower.X[f1.Controller.pathFollower.i].ToString()+"  Y  " + f1.Controller.pathFollower.Y[f1.Controller.pathFollower.i].ToString() + "\nDistance"+ f1.Controller.pathFollower.TotalDistance.ToString();
            
@@ -117,7 +118,7 @@ namespace RoboSoccer
 
                 try
                 {
-                    serialPort1.WriteLine(f1.Controller.StrikerPathPlanning.pathFollower.speed.ToString() + ',' + ((int)f1.Blueorient[1]).ToString() + ',' + ((int)f1.Controller.StrikerPathPlanning.pathFollower.angle).ToString() + ",50,0");
+                    serialPort1.WriteLine(f1.Controller.StrikerPlan.pathFollower.speed.ToString() + ',' + ((int)f1.Blueorient[1]).ToString() + ',' + ((int)f1.Controller.StrikerPlan.pathFollower.angle).ToString() + ",50,0");
          //           richTextBox2.Text = f1.speed.ToString() + ',' + ((int)f1.orient[5]).ToString() + ',' + ((int)f1.angle[5]).ToString() + ",60,0";
                 }
                 catch { }
@@ -130,21 +131,21 @@ namespace RoboSoccer
         public void chart1_Click(object sender, EventArgs e)
         {
             richTextBox3.Text = "X ";
-            richTextBox3.Text += f1.Controller.StrikerPathPlanning.motionPlaning.x[0].ToString() + ' ';//f1.motion.x[0].ToString()+' ';
+            richTextBox3.Text += f1.Controller.StrikerPlan.motionPlaning.x[0].ToString() + ' ';//f1.motion.x[0].ToString()+' ';
 
-            for (int i = 1; i < f1.Controller.StrikerPathPlanning.motionPlaning.x.Length; i++)
+            for (int i = 1; i < f1.Controller.StrikerPlan.motionPlaning.x.Length; i++)
             {
-                richTextBox3.Text += f1.Controller.StrikerPathPlanning.motionPlaning.x[i].ToString() + ' ';
+                richTextBox3.Text += f1.Controller.StrikerPlan.motionPlaning.x[i].ToString() + ' ';
 
             }
 
             richTextBox3.Text += "\n\nY ";
-            richTextBox3.Text += f1.Controller.StrikerPathPlanning.motionPlaning.y[0].ToString() + ' ';
+            richTextBox3.Text += f1.Controller.StrikerPlan.motionPlaning.y[0].ToString() + ' ';
 
-            for (int i = 1; i < f1.Controller.StrikerPathPlanning.motionPlaning.x.Length; i++)
+            for (int i = 1; i < f1.Controller.StrikerPlan.motionPlaning.x.Length; i++)
             {
 
-                richTextBox3.Text += f1.Controller.StrikerPathPlanning.motionPlaning.x[i].ToString() + ' ';
+                richTextBox3.Text += f1.Controller.StrikerPlan.motionPlaning.x[i].ToString() + ' ';
             }
 
             chart1.Series["Trejectory"].Points.Clear();
@@ -221,9 +222,9 @@ namespace RoboSoccer
                 
             }
             // chart1.Series["Trejectory"].Points.;
-            for (int i = 0; i < f1.Controller.StrikerPathPlanning.motionPlaning.x.Length; i++)
+            for (int i = 0; i < f1.Controller.StrikerPlan.motionPlaning.x.Length; i++)
             {
-                chart1.Series["Trejectory"].Points.AddXY(f1.Controller.StrikerPathPlanning.motionPlaning.x[i], f1.Controller.StrikerPathPlanning.motionPlaning.y[i]);
+                chart1.Series["Trejectory"].Points.AddXY(f1.Controller.StrikerPlan.motionPlaning.x[i], f1.Controller.StrikerPlan.motionPlaning.y[i]);
             }
             chart1.Series["abc"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
             chart1.Series["Trejectory"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
@@ -242,8 +243,10 @@ namespace RoboSoccer
 
         private void closing(object sender, FormClosingEventArgs e)
         {
-            f1.Controller.StrikerPathPlanning.pathFollower.pathfollower.Abort();
-            f1.Controller.StrikerPathPlanning.trejectoryPloting.Abort();                          
+            f1.Controller.StrikerPlan.pathFollower.pathfollower.Abort();
+            f1.Controller.GoalkeePlan.pathFollower.pathfollower.Abort();
+            f1.Controller.StrikerPlan.trejectoryPloting.Abort();
+            f1.Controller.GoalkeePlan.trejectoryPloting.Abort();
             if (serialPort1.IsOpen)
             {
                 try
@@ -267,27 +270,27 @@ namespace RoboSoccer
 
         private void timer3_Tick_1(object sender, EventArgs e)
         {
-            if (f1.Controller.StrikerPathPlanning.pathcompleteforGraph == 1)
+            if (f1.Controller.StrikerPlan.pathcompleteforGraph == 1 && f1.Controller.GoalkeePlan.pathcompleteforGraph == 1)
             {
                 timer3.Enabled = false;
                 richTextBox3.Text = "X ";
-                richTextBox3.Text += f1.Controller.StrikerPathPlanning.motionPlaning.x[0].ToString() + ' ';//f1.motion.x[0].ToString()+' ';
+                richTextBox3.Text += f1.Controller.StrikerPlan.motionPlaning.x[0].ToString() + ' ';//f1.motion.x[0].ToString()+' ';
 
-                for (int i = 1; i < f1.Controller.StrikerPathPlanning.motionPlaning.x.Length; i++)
+                for (int i = 1; i < f1.Controller.StrikerPlan.motionPlaning.x.Length; i++)
                 {
-                    richTextBox3.Text += f1.Controller.StrikerPathPlanning.motionPlaning.x[i].ToString() + ' ';
+                    richTextBox3.Text += f1.Controller.StrikerPlan.motionPlaning.x[i].ToString() + ' ';
 
                 }
 
                 richTextBox3.Text += "\n\nY ";
-                richTextBox3.Text += f1.Controller.StrikerPathPlanning.motionPlaning.y[0].ToString() + ' ';
+                richTextBox3.Text += f1.Controller.StrikerPlan.motionPlaning.y[0].ToString() + ' ';
 
-                for (int i = 1; i < f1.Controller.StrikerPathPlanning.motionPlaning.x.Length; i++)
+                for (int i = 1; i < f1.Controller.StrikerPlan.motionPlaning.x.Length; i++)
                 {
 
-                    richTextBox3.Text += f1.Controller.StrikerPathPlanning.motionPlaning.x[i].ToString() + ' ';
+                    richTextBox3.Text += f1.Controller.StrikerPlan.motionPlaning.x[i].ToString() + ' ';
                 }
-
+                chart1.Series["Trajectory0"].Points.Clear();
                 chart1.Series["Trejectory"].Points.Clear();
                 chart1.Series["ball"].Points.Clear();
                 chart1.Series["blueBot1"].Points.Clear();
@@ -360,17 +363,28 @@ namespace RoboSoccer
 
                 }
                 // chart1.Series["Trejectory"].Points.;
-                for (int i = 0; i < f1.Controller.StrikerPathPlanning.motionPlaning.x.Length; i++)
+                for (int i = 0; i < f1.Controller.StrikerPlan.motionPlaning.x.Length; i++)
                 {
-                    chart1.Series["Trejectory"].Points.AddXY(f1.Controller.StrikerPathPlanning.motionPlaning.x[i], f1.Controller.StrikerPathPlanning.motionPlaning.y[i]);
+                    chart1.Series["Trejectory"].Points.AddXY(f1.Controller.StrikerPlan.motionPlaning.x[i], f1.Controller.StrikerPlan.motionPlaning.y[i]);
+                }
+                for (int i = 0; i < f1.Controller.GoalkeePlan.motionPlaning.x.Length; i++)
+                {
+                    chart1.Series["Trajectory0"].Points.AddXY(f1.Controller.GoalkeePlan.motionPlaning.x[i], f1.Controller.GoalkeePlan.motionPlaning.y[i]);
                 }
                 chart1.Series["abc"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
                 chart1.Series["Trejectory"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
                 chart1.Series["Trejectory"].Color = Color.Red;
+                chart1.Series["Trajectory0"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+                chart1.Series["Trajectory0"].Color = Color.Red;
                 chart1.Series["ball"].Color = Color.OrangeRed;
-                    f1.Controller.StrikerPathPlanning.pathcompleteforGraph = 0;
+                    f1.Controller.StrikerPlan.pathcompleteforGraph = 0;
             }
             timer3.Enabled = true;
+        }
+
+        private void Strateg1_Click(object sender, EventArgs e)
+        {
+
         }
     }
     }

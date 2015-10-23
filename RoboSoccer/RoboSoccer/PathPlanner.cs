@@ -10,7 +10,7 @@ namespace RoboSoccer
     {
         public double ballx, bally;
         public double targetX, targetY;
-        public int Striker, Goalkey, Blueteam;
+        public int RobotID, Goalkey, Blueteam;
 
         public int noBlueBots;
         public double[] blueRobotX, blueRobotY, blueRobotOrient;
@@ -30,7 +30,7 @@ namespace RoboSoccer
         public Thread trejectoryPloting;
         public int newPathComplete;
         public PathFollower pathFollower;
-           public PathPlanner(int noofbots, int striker, int goalkey, int team)
+           public PathPlanner(int noofbots, int R_ID,  int team,int GoalkeyID)
                 {
             blueRobotX = new double[noofbots];
             blueRobotY = new double[noofbots];                                    
@@ -38,8 +38,7 @@ namespace RoboSoccer
             yellowRobotX = new double[noofbots];
             yellowRobotY = new double[noofbots];
             yellowRobotOrient = new double[noofbots];
-            Striker = striker;
-            Goalkey = goalkey;
+            RobotID = R_ID;
             Blueteam = team;
             pathFollower = new PathFollower();
             motionPlaning = new ObstacleTrejectory();
@@ -75,8 +74,8 @@ namespace RoboSoccer
 
         public void setTarget(double target_y,double target_x)
         {
-            targetY = target_x;
-            targetX = target_y;
+            targetY = target_y;
+            targetX = target_x;
             
 
 
@@ -96,9 +95,18 @@ namespace RoboSoccer
                 pathFollower.Y = new double[motionPlaning.x.Length];
                 pathFollower.X = motionPlaning.x;
                 pathFollower.Y = motionPlaning.y;
-                pathFollower.robotX = blueRobotX[Striker];
-                pathFollower.robotY = blueRobotY[Striker];
-                pathFollower.robotOrientation = blueRobotOrient[Striker];
+                if (Blueteam == 1)
+                {
+                    pathFollower.robotX = blueRobotX[RobotID];
+                    pathFollower.robotY = blueRobotY[RobotID];
+                    pathFollower.robotOrientation = blueRobotOrient[RobotID];
+                }
+                else
+                {
+                    pathFollower.robotX = yellowRobotX[RobotID];
+                    pathFollower.robotY = yellowRobotY[RobotID];
+                    pathFollower.robotOrientation = yellowRobotOrient[RobotID];
+                }
                 pathFollower.TotalDistance = motionPlaning.Totaldistance;
 
                 newPathComplete = 0;
@@ -115,10 +123,10 @@ namespace RoboSoccer
                 //  motion.PathFinding(bally, ballx, BluerobotY[Striker], BluerobotX[Striker], BluerobotOrient[Striker], BluerobotY[Goalkee], BluerobotX[Goalkee], (pakt.detection.robots_blue.Count + pakt.detection.robots_yellow.Count));
                 if (Blueteam == 1)
                 {
-                    motionPlaning.PathFinding(Blueteam, targetY,targetX, blueRobotY, blueRobotX, blueRobotOrient, Striker, yellowRobotY, yellowRobotX, BluerobotInField + YellowrobotInField);
+                    motionPlaning.PathFinding(Blueteam, targetY,targetX, blueRobotY, blueRobotX, blueRobotOrient, RobotID, yellowRobotY, yellowRobotX, BluerobotInField + YellowrobotInField);
                 }
                 else
-                    motionPlaning.PathFinding(Blueteam, targetY, targetX, yellowRobotY, yellowRobotX, yellowRobotOrient, Striker, blueRobotY, blueRobotX, BluerobotInField + YellowrobotInField);
+                    motionPlaning.PathFinding(Blueteam, targetY, targetX, yellowRobotY, yellowRobotX, yellowRobotOrient, RobotID, blueRobotY, blueRobotX, BluerobotInField + YellowrobotInField);
 
 
 
