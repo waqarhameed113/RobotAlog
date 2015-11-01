@@ -8,8 +8,8 @@ namespace RoboSoccer
 {
     public class GoalKee
     {
-        public double ballx, bally, goalkeyX, goalKeyY, distance, angle;
-        public double[] opponentX, opponentY;
+        public double ballx, bally, goalkeyX, goalKeyY, angle;
+        public double[] opponentX, opponentY, distance;
         public int index;
         public int limit = 350;
         
@@ -22,38 +22,50 @@ namespace RoboSoccer
             goalkeyX = new double();
             goalKeyY = new double();
             goalkeyX = goalX;
+            distance = new double[2];
             
         }
         public void calculateY(int a)
         {
             angle = cal.Angle(bally, ballx, opponentY[a], opponentX[a]);
             goalKeyY = (goalkeyX - ballx) * Math.Tan(angle*Math.PI/180) +  bally;
-            
-            
-             
-                
-            
+           
+
+
+
+
         }
 
         public void goalkeeper()
         {
-            
-            
-            for (int i = 0; i <opponentX.Length; i++)
+
+
+            for (int i = 0; i < opponentX.Length; i++)
             {
-                distance = cal.Distances(bally, ballx, opponentY[i], opponentX[i]);
-                if (distance < 500)
+                distance[i] = cal.Distances(bally, ballx, opponentY[i], opponentX[i]);
+            }
+                if (distance[0] < 500 || distance[1] < 500)
                 {
-                    calculateY(i);
+                if (distance[1] < 500)
+                    calculateY(1);
+                else
+                    calculateY(0);
                 }
-                
-            }
 
-            if (!( goalKeyY<limit && goalKeyY > -limit))
-            {
-                goalKeyY = bally;
+                 else if (bally > limit)
+                    goalKeyY = limit;
+                else if (bally < (-limit))
+                    goalKeyY = -limit;
+                else
+                    goalKeyY = bally;
             }
+           
 
+            /*    if (!( goalKeyY<limit && goalKeyY > -limit))
+                {
+                    goalKeyY = bally;
+                }
+              */
         }
     }
-}
+                                                  

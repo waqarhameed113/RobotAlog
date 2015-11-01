@@ -30,14 +30,14 @@ namespace RoboSoccer
         public Thread trejectoryPloting;
         public int newPathComplete;
         public PathFollower pathFollower;
-           public PathPlanner(int noofbots, int R_ID,  int team,int GoalkeyID)
+           public PathPlanner(int noofbots, int R_ID,  int team,int GoalkeyID,int noOfBlueRobo, int noOfYellowRobo)
                 {
-            blueRobotX = new double[noofbots];
-            blueRobotY = new double[noofbots];                                    
-            blueRobotOrient = new double[noofbots];    
-            yellowRobotX = new double[noofbots];
-            yellowRobotY = new double[noofbots];
-            yellowRobotOrient = new double[noofbots];
+            blueRobotX = new double[noOfBlueRobo];
+            blueRobotY = new double[noOfBlueRobo];                                    
+            blueRobotOrient = new double[noOfBlueRobo];    
+            yellowRobotX = new double[noOfYellowRobo];
+            yellowRobotY = new double[noOfYellowRobo];
+            yellowRobotOrient = new double[noOfYellowRobo];
             RobotID = R_ID;
             Blueteam = team;
             pathFollower = new PathFollower();

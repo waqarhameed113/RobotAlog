@@ -15,8 +15,8 @@ namespace RoboSoccer
         public int i = 0;
         public strategic()
         {
-            X = new double[3] { -902, -2600, -2700 }; 
-            Y = new double[3] { 274, 1700, -1600 };
+            X = new double[3] { -902, -2600, -1700 }; 
+            Y = new double[3] { 274, 1700, -1000 };
             RobotX = new double();
             RobotY = new double();
             cal = new Calculation();

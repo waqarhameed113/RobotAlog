@@ -30,11 +30,12 @@ namespace RoboSoccer
         public double[] YellowrobotX, YellowrobotY, YellowrobotID, YellowrobotOrient, Yellowdistance, Yellowangle, Yelloworient;
         public int[] speed ;
         const int noOfRobot = 4;
-        const int noOfRobotBlue = 4;
-        const int noOfRobotYellow = 4;
+        const int noOfRobotBlue = 2;
+        const int noOfRobotYellow = 2;
         public int c_radius;
         public Calculation calc;
           public Control Controller;
+        public int goalkeyPositonX=-2800;
        
         public int line;
        
@@ -58,7 +59,7 @@ namespace RoboSoccer
             /////////////////////////////////////////
             calc = new Calculation();
            
-            Controller = new Control(noOfRobot,Striker,Goalkee,Mybotblue);
+            Controller = new Control(noOfRobot,Striker,Goalkee,Mybotblue, noOfRobotBlue,noOfRobotYellow, goalkeyPositonX);
             
            
            
@@ -71,7 +72,7 @@ public  void getFeedback()
             Controller.StrikerPlan.PathChanger();
             Controller.GoalkeePlan.PathChanger();
             Controller.update();
-            //Controller.SetTarget();
+          //  Controller.SetTarget();
 
 
         }

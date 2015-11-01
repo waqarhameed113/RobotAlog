@@ -34,23 +34,23 @@ namespace RoboSoccer
         public strategic Strategic;
         public GoalKee goaler;
         
-        public Control(int noofbots,int striker,int goalkey,int team)
+        public Control(int noofbots,int striker,int goalkey,int team,int noOfBlueRobot, int noOfYellowRobot,int myGoalkeyPosition)
         {
-            blueRobotX = new double[noofbots];
-            blueRobotY = new double[noofbots];
-            blueRobotOrient = new double[noofbots];
-            yellowRobotX = new double[noofbots];
-            yellowRobotY = new double[noofbots];
-            yellowRobotOrient = new double[noofbots];
+            blueRobotX = new double[noOfBlueRobot];
+            blueRobotY = new double[noOfBlueRobot];
+            blueRobotOrient = new double[noOfBlueRobot];
+            yellowRobotX = new double[noOfYellowRobot];
+            yellowRobotY = new double[noOfYellowRobot];
+            yellowRobotOrient = new double[noOfYellowRobot];
             Striker = striker;
             Goalkey = goalkey;
             Blueteam = team;
-            goaler = new GoalKee(goalkey,-2600);
+            goaler = new GoalKee(goalkey,myGoalkeyPosition);
             Strategic = new strategic();
 
             
-            StrikerPlan = new PathPlanner(noofbots, striker,  team,goalkey);
-            GoalkeePlan = new PathPlanner(noofbots, goalkey, team,goalkey);
+            StrikerPlan = new PathPlanner(noofbots, striker,  team,goalkey, noOfBlueRobot, noOfYellowRobot);
+            GoalkeePlan = new PathPlanner(noofbots, goalkey, team,goalkey, noOfBlueRobot, noOfYellowRobot);
             
              
 
