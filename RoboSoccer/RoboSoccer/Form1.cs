@@ -64,10 +64,10 @@ namespace RoboSoccer
             richTextBox1.Text += "Robot_Y " + ((int)f1.BluerobotY[1]).ToString() + '\n';
             richTextBox1.Text += "Distance " + ((int)f1.Bluedistance[1]).ToString() + '\n';
             richTextBox1.Text += "Angle " + ((int)f1.Blueangle[1]).ToString() + '\n';
-            richTextBox1.Text += "Orient " + ((int)f1.Blueorient[1]).ToString() + '\n';
+            richTextBox1.Text += "Orient " + ((int)f1.Blueorient_Ball[1]).ToString() + '\n';
 
                         //    richTextBox2.Text = "Speed,Rotate,Angle,R_Magnitude,garbage\n";
-             richTextBox2.Text = f1.Controller.StrikerPlan.pathFollower.speed.ToString() + ',' + ((int)f1.Blueorient[1]).ToString() + ',' +( (int)f1.Controller.StrikerPlan.pathFollower.angle).ToString() + ",80,0\n"+ f1.line.ToString()+'\n';
+             richTextBox2.Text = f1.Controller.StrikerPlan.pathFollower.speed.ToString() + ',' + ((int)f1.Blueorient_Goal[f1.Striker]).ToString() + ',' +( (int)f1.Controller.StrikerPlan.pathFollower.angle).ToString() + ",80,0\n"+ f1.line.ToString()+'\n';
         //   if (f1.Controller.pathFollower.newpathIndication==1)
           // richTextBox4.Text = "X  "+f1.Controller.pathFollower.X[f1.Controller.pathFollower.i].ToString()+"  Y  " + f1.Controller.pathFollower.Y[f1.Controller.pathFollower.i].ToString() + "\nDistance"+ f1.Controller.pathFollower.TotalDistance.ToString();
            
@@ -90,7 +90,7 @@ namespace RoboSoccer
         {
             if (!serialPort1.IsOpen)
             {
-                serialPort1.PortName = "COM4";
+                serialPort1.PortName = "COM5";
                 serialPort1.BaudRate = 115200;
                 serialPort1.Open();
 
@@ -118,8 +118,9 @@ namespace RoboSoccer
 
                 try
                 {
-                    serialPort1.WriteLine(f1.Controller.StrikerPlan.pathFollower.speed.ToString() + ',' + ((int)f1.Blueorient[1]).ToString() + ',' + ((int)f1.Controller.StrikerPlan.pathFollower.angle).ToString() + ",30,0");
-         //           richTextBox2.Text = f1.speed.ToString() + ',' + ((int)f1.orient[5]).ToString() + ',' + ((int)f1.angle[5]).ToString() + ",60,0";
+                    serialPort1.WriteLine(f1.Controller.StrikerPlan.pathFollower.speed.ToString() + ',' + ((int)f1.Blueorient_Goal[f1.Striker]).ToString() + ',' + ((int)f1.Controller.StrikerPlan.pathFollower.angle).ToString() + ",20,0");
+                  //  serialPort1.WriteLine(f1.Controller.GoalkeePlan.pathFollower.speed.ToString() + ',' + ((int)f1.Blueorient_Ball[f1.Goalkee]).ToString() + ',' + ((int)f1.Controller.GoalkeePlan.pathFollower.angle).ToString() + ",20,0");
+                    //           richTextBox2.Text = f1.speed.ToString() + ',' + ((int)f1.orient[5]).ToString() + ',' + ((int)f1.angle[5]).ToString() + ",60,0";
                 }
                 catch { }
             }

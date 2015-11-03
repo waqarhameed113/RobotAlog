@@ -40,3 +40,8 @@ C:\Users\JailBreaker\Documents\GitHub\RobotAlog\RoboSoccer\RoboSoccer\obj\Debug\
 C:\Users\JailBreaker\Documents\GitHub\RobotAlog\RoboSoccer\RoboSoccer\obj\Debug\RoboSoccer.Form1.resources
 C:\Users\JailBreaker\Documents\GitHub\RobotAlog\RoboSoccer\RoboSoccer\obj\Debug\RoboSoccer.Properties.Resources.resources
 C:\Users\JailBreaker\Documents\GitHub\RobotAlog\RoboSoccer\RoboSoccer\obj\Debug\RoboSoccer.csproj.GenerateResource.Cache
+C:\Users\JailBreaker\Documents\GitHub\RobotAlog\RoboSoccer\RoboSoccer\bin\Debug\ALGLib.dll
+C:\Users\JailBreaker\Documents\GitHub\RobotAlog\RoboSoccer\RoboSoccer\bin\Debug\DotNumerics.dll
+C:\Users\JailBreaker\Documents\GitHub\RobotAlog\RoboSoccer\RoboSoccer\bin\Debug\MathNet.Iridium.dll
+C:\Users\JailBreaker\Documents\GitHub\RobotAlog\RoboSoccer\RoboSoccer\bin\Debug\DotNumerics.xml
+C:\Users\JailBreaker\Documents\GitHub\RobotAlog\RoboSoccer\RoboSoccer\bin\Debug\MathNet.Iridium.xml

@@ -49,8 +49,8 @@ namespace RoboSoccer
             Strategic = new strategic();
 
             
-            StrikerPlan = new PathPlanner(noofbots, striker,  team,goalkey, noOfBlueRobot, noOfYellowRobot);
-            GoalkeePlan = new PathPlanner(noofbots, goalkey, team,goalkey, noOfBlueRobot, noOfYellowRobot);
+            StrikerPlan = new PathPlanner(noofbots, striker,  team,goalkey, noOfBlueRobot, noOfYellowRobot,(-myGoalkeyPosition));
+            GoalkeePlan = new PathPlanner(noofbots, goalkey, team,goalkey, noOfBlueRobot, noOfYellowRobot,(-myGoalkeyPosition));
             
              
 

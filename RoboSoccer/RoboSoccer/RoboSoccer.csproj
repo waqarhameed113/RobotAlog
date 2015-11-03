@@ -33,6 +33,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ALGLib">
+      <HintPath>..\..\..\..\..\Desktop\StarMath-master\Similar Libraries\ALGLib.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNumerics">
+      <HintPath>..\..\..\..\..\Desktop\StarMath-master\Similar Libraries\DotNumerics.dll</HintPath>
+    </Reference>
+    <Reference Include="MathNet.Iridium">
+      <HintPath>..\..\..\..\..\Desktop\StarMath-master\Similar Libraries\MathNet.Iridium.dll</HintPath>
+    </Reference>
     <Reference Include="protobuf-net">
       <HintPath>..\..\..\example code\protobuf-net.dll</HintPath>
     </Reference>
@@ -66,6 +75,7 @@
     <Compile Include="messages_robocup_ssl_geometry.cs" />
     <Compile Include="messages_robocup_ssl_refbox_log.cs" />
     <Compile Include="messages_robocup_ssl_wrapper.cs" />
+    <Compile Include="multiply divide.cs" />
     <Compile Include="ObstacleTrejectory.cs" />
     <Compile Include="PathFollower.cs" />
     <Compile Include="PathPlanner.cs" />

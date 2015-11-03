@@ -49,9 +49,9 @@ namespace RoboSoccer
 
                 angle = cal.Angle(Y[i], X[i], robotY, robotX, robotOrientation);
                 if (TotalDistance < 600)
-                    speed = (int)pid.PID_Output(0.05, 0.015, 0.0001, TotalDistance, 1);
+                    speed = (int)pid.PID_Output(0.1, 1, 0.0001, TotalDistance, 1);
                 else
-                    speed = (int)pid.PID_Output(0.01, 0.04, 0.0001, TotalDistance, 0);
+                    speed = (int)pid.PID_Output(0.01, 0.4, 0.0001, TotalDistance, 0);
 
                 
                 Thread.Sleep(20);

@@ -100,8 +100,46 @@ namespace RoboSoccer
     
 
 
-        public void PathFinding(int team,double target_y, double target_x, double[] __roboty, double[] __robotx, double[] _robotOrient, int _striker ,double[] O_roboty,double[] O_robotx,int robotcount)
+        public void PathFinding(int team,double target_y, double target_x, double[] __roboty, double[] __robotx, double[] _robotOrient, int _striker ,double[] O_roboty,double[] O_robotx,int robotcount,int goaltarget)
         {
+
+         //   int targetgoalX = goaltarget;
+            double targetgoalAngle = cal.Angle(target_y, target_x, 0, goaltarget)+180;
+            double AStepX = (int)(stepsize * Math.Cos(targetgoalAngle * Math.PI / 180));
+            double AStepY = (int)(stepsize * Math.Sin(targetgoalAngle * Math.PI / 180));
+
+            /////////////////////////////////////////////////////
+            if (target_x > targetgoalAngle && target_y > 0)
+            {
+                target_x += AStepX;
+                target_y += AStepY;
+               
+
+            }
+            else if (targetgoalAngle > target_x && 0 > target_y)
+            {
+                target_x -= AStepX;
+                target_y -= AStepY;
+              
+            }
+            else if (target_x < targetgoalAngle && 0 < target_y)
+            {
+                target_x -= AStepX;
+                target_y += AStepY;
+               
+            }
+            else if (target_x > targetgoalAngle && target_y < 0)
+            {
+                target_x += AStepX;
+                target_y -= AStepY;
+               
+            }
+
+
+
+
+            ///////////////////////////////////////////////////
+
             striker = _striker;
             obstacal_targetdistance = new double();
             if (team == 1)
@@ -206,10 +244,10 @@ namespace RoboSoccer
                             P_O_B[i] = cal.Distances(__roboty[i], __robotx[i], (double)YCC.Peek(), (double)XCC.Peek());
                             obstacal_targetdistance = cal.Distances(target_y, target_x, __roboty[i], __robotx[i]);
                         
-                        if (P_O_B[i]<900 && obstacal_targetdistance < point_targetdistance)
+                        if (P_O_B[i]<600 && obstacal_targetdistance < point_targetdistance)
                              {
                             doneBlue[i] = 1;
-                            newPath(800,i, __robotx, __roboty, obstacal_targetdistance, target_x, target_y, (double)XCC.Peek(), (double)YCC.Peek());
+                            newPath(500,i, __robotx, __roboty, obstacal_targetdistance, target_x, target_y, (double)XCC.Peek(), (double)YCC.Peek());
                             angle = cal.Angle(target_y, target_x, (double)YCC.Peek(), (double)XCC.Peek());
                             Xstep = (int)(stepsize * Math.Cos(angle * Math.PI / 180));
                             Ystep = (int)(stepsize * Math.Sin(angle * Math.PI / 180));
@@ -232,10 +270,10 @@ namespace RoboSoccer
                         P_O_Y[i] = cal.Distances(O_roboty[i], O_robotx[i], (double)YCC.Peek(), (double)XCC.Peek());
                         obstacal_targetdistance = cal.Distances(target_y, target_x, O_roboty[i], O_robotx[i]);
 
-                        if (P_O_Y[i] < 900 && obstacal_targetdistance < point_targetdistance)
+                        if (P_O_Y[i] < 600 && obstacal_targetdistance < point_targetdistance)
                         {
                             doneYellow[i] = 1;
-                            newPath(800, i,  O_robotx, O_roboty, obstacal_targetdistance, target_x, target_y, (double)XCC.Peek(), (double)YCC.Peek());
+                            newPath(500, i,  O_robotx, O_roboty, obstacal_targetdistance, target_x, target_y, (double)XCC.Peek(), (double)YCC.Peek());
                             angle = cal.Angle(target_y, target_x, (double)YCC.Peek(), (double)XCC.Peek());
                             Xstep = (int)(stepsize * Math.Cos(angle * Math.PI / 180));
                             Ystep = (int)(stepsize * Math.Sin(angle * Math.PI / 180));

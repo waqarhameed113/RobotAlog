@@ -40,8 +40,8 @@ namespace RoboSoccer
 
             Output = (KP * error) + (KI * errorSum )+ (KD * diff);
             Lasterror = error;
-            if (Output >= 50)
-                Output = 50;
+            if (Output >= 40)
+                Output = 40;
             else if (Output < 0)
                 Output = 0;
             return Output;

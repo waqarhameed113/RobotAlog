@@ -24,13 +24,13 @@ namespace RoboSoccer
         public int YellowrobotInField;
         int i = 0;
 
-        
+        public int Goaltarget;
         public ObstacleTrejectory motionPlaning;
         
         public Thread trejectoryPloting;
         public int newPathComplete;
         public PathFollower pathFollower;
-           public PathPlanner(int noofbots, int R_ID,  int team,int GoalkeyID,int noOfBlueRobo, int noOfYellowRobo)
+           public PathPlanner(int noofbots, int R_ID,  int team,int GoalkeyID,int noOfBlueRobo, int noOfYellowRobo, int goaltarget)
                 {
             blueRobotX = new double[noOfBlueRobo];
             blueRobotY = new double[noOfBlueRobo];                                    
@@ -43,7 +43,7 @@ namespace RoboSoccer
             pathFollower = new PathFollower();
             motionPlaning = new ObstacleTrejectory();
             trejectoryPloting = new Thread(pathDraw);
-            
+            Goaltarget = goaltarget;
             
         }
 
@@ -123,10 +123,10 @@ namespace RoboSoccer
                 //  motion.PathFinding(bally, ballx, BluerobotY[Striker], BluerobotX[Striker], BluerobotOrient[Striker], BluerobotY[Goalkee], BluerobotX[Goalkee], (pakt.detection.robots_blue.Count + pakt.detection.robots_yellow.Count));
                 if (Blueteam == 1)
                 {
-                    motionPlaning.PathFinding(Blueteam, targetY,targetX, blueRobotY, blueRobotX, blueRobotOrient, RobotID, yellowRobotY, yellowRobotX, BluerobotInField + YellowrobotInField);
+                    motionPlaning.PathFinding(Blueteam, targetY,targetX, blueRobotY, blueRobotX, blueRobotOrient, RobotID, yellowRobotY, yellowRobotX, BluerobotInField + YellowrobotInField,Goaltarget);
                 }
                 else
-                    motionPlaning.PathFinding(Blueteam, targetY, targetX, yellowRobotY, yellowRobotX, yellowRobotOrient, RobotID, blueRobotY, blueRobotX, BluerobotInField + YellowrobotInField);
+                    motionPlaning.PathFinding(Blueteam, targetY, targetX, yellowRobotY, yellowRobotX, yellowRobotOrient, RobotID, blueRobotY, blueRobotX, BluerobotInField + YellowrobotInField,Goaltarget);
 
 
 
