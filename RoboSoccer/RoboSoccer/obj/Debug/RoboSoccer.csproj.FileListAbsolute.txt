@@ -45,3 +45,8 @@ C:\Users\JailBreaker\Documents\GitHub\RobotAlog\RoboSoccer\RoboSoccer\bin\Debug\
 C:\Users\JailBreaker\Documents\GitHub\RobotAlog\RoboSoccer\RoboSoccer\bin\Debug\MathNet.Iridium.dll
 C:\Users\JailBreaker\Documents\GitHub\RobotAlog\RoboSoccer\RoboSoccer\bin\Debug\DotNumerics.xml
 C:\Users\JailBreaker\Documents\GitHub\RobotAlog\RoboSoccer\RoboSoccer\bin\Debug\MathNet.Iridium.xml
+C:\Users\JailBreaker\Documents\GitHub\RobotAlog\RoboSoccer\RoboSoccer\bin\Debug\Accord.dll.config
+C:\Users\JailBreaker\Documents\GitHub\RobotAlog\RoboSoccer\RoboSoccer\bin\Debug\Accord.dll
+C:\Users\JailBreaker\Documents\GitHub\RobotAlog\RoboSoccer\RoboSoccer\bin\Debug\Accord.Math.dll
+C:\Users\JailBreaker\Documents\GitHub\RobotAlog\RoboSoccer\RoboSoccer\bin\Debug\Accord.xml
+C:\Users\JailBreaker\Documents\GitHub\RobotAlog\RoboSoccer\RoboSoccer\bin\Debug\Accord.Math.xml

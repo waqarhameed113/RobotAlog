@@ -36,6 +36,7 @@ namespace RoboSoccer
 
                f1.Controller.StrikerPlan.trejectoryPloting.Start();
                 f1.Controller.GoalkeePlan.trejectoryPloting.Start();
+                f1.KalmanThread.Start();
                 timer3.Enabled = true;
              
 
@@ -65,9 +66,10 @@ namespace RoboSoccer
             richTextBox1.Text += "Distance " + ((int)f1.Bluedistance[1]).ToString() + '\n';
             richTextBox1.Text += "Angle " + ((int)f1.Blueangle[1]).ToString() + '\n';
             richTextBox1.Text += "Orient " + ((int)f1.Blueorient_Ball[1]).ToString() + '\n';
+            richTextBox4.Text = ((int)f1.BluerobotOrient[1]).ToString() + '\n';
 
-                        //    richTextBox2.Text = "Speed,Rotate,Angle,R_Magnitude,garbage\n";
-             richTextBox2.Text = f1.Controller.StrikerPlan.pathFollower.speed.ToString() + ',' + ((int)f1.Blueorient_Goal[f1.Striker]).ToString() + ',' +( (int)f1.Controller.StrikerPlan.pathFollower.angle).ToString() + ",80,0\n"+ f1.line.ToString()+'\n';
+            //    richTextBox2.Text = "Speed,Rotate,Angle,R_Magnitude,garbage\n";
+            richTextBox2.Text = f1.Controller.StrikerPlan.pathFollower.speed.ToString() + ',' + ((int)f1.Blueorient_Goal[f1.Striker]).ToString() + ',' +( (int)f1.Controller.StrikerPlan.pathFollower.angle).ToString() + ",80,0\n"+ f1.line.ToString()+'\n';
         //   if (f1.Controller.pathFollower.newpathIndication==1)
           // richTextBox4.Text = "X  "+f1.Controller.pathFollower.X[f1.Controller.pathFollower.i].ToString()+"  Y  " + f1.Controller.pathFollower.Y[f1.Controller.pathFollower.i].ToString() + "\nDistance"+ f1.Controller.pathFollower.TotalDistance.ToString();
            
@@ -90,7 +92,7 @@ namespace RoboSoccer
         {
             if (!serialPort1.IsOpen)
             {
-                serialPort1.PortName = "COM5";
+                serialPort1.PortName = "COM3";
                 serialPort1.BaudRate = 115200;
                 serialPort1.Open();
 
@@ -248,6 +250,7 @@ namespace RoboSoccer
             f1.Controller.GoalkeePlan.pathFollower.pathfollower.Abort();
             f1.Controller.StrikerPlan.trejectoryPloting.Abort();
             f1.Controller.GoalkeePlan.trejectoryPloting.Abort();
+            f1.KalmanThread.Abort();
             if (serialPort1.IsOpen)
             {
                 try

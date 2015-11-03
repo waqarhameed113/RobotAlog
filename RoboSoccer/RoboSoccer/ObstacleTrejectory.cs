@@ -103,7 +103,7 @@ namespace RoboSoccer
         public void PathFinding(int team,double target_y, double target_x, double[] __roboty, double[] __robotx, double[] _robotOrient, int _striker ,double[] O_roboty,double[] O_robotx,int robotcount,int goaltarget)
         {
 
-         //   int targetgoalX = goaltarget;
+    /*     //   int targetgoalX = goaltarget;
             double targetgoalAngle = cal.Angle(target_y, target_x, 0, goaltarget)+180;
             double AStepX = (int)(stepsize * Math.Cos(targetgoalAngle * Math.PI / 180));
             double AStepY = (int)(stepsize * Math.Sin(targetgoalAngle * Math.PI / 180));
@@ -135,7 +135,7 @@ namespace RoboSoccer
                
             }
 
-
+      */
 
 
             ///////////////////////////////////////////////////
