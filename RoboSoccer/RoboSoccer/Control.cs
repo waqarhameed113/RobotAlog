@@ -64,8 +64,9 @@ namespace RoboSoccer
             goaler.ballx = ball_x;
             goaler.bally = ball_y;
 
+            if (Striker==1)
             StrikerPlan.setBall(ball_x, ball_y);
-
+            else
             GoalkeePlan.setBall(ball_x, ball_y);
 
         }

@@ -11,13 +11,13 @@ namespace RoboSoccer
 {
     public class KalmanFilter
     {
-       double dt = 0.4;
+       double dt = 0.05;
         double u = 0;
         double position = 1;
         double velocity = 0;
         public double[,] XT, tempX, tempPCT, AP, APAT,CT ,ZT,K,XTT,A,B,C,EX,AT,PT,CPCT,tempK;
                public double processNoise = 0.5;
-        public double measureNoise = 20;
+        public double measureNoise = 39;
        public   double S_;
          public double input = 0;
         
