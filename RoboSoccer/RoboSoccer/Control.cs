@@ -33,6 +33,8 @@ namespace RoboSoccer
         public PathPlanner GoalkeePlan;
         public strategic Strategic;
         public GoalKee goaler;
+        public Calculation cal;
+        double balldistance;
         
         public Control(int noofbots,int striker,int goalkey,int team,int noOfBlueRobot, int noOfYellowRobot,int myGoalkeyPosition)
         {
@@ -48,7 +50,7 @@ namespace RoboSoccer
             goaler = new GoalKee(goalkey,myGoalkeyPosition);
             Strategic = new strategic();
 
-            
+            cal = new Calculation();
             StrikerPlan = new PathPlanner(noofbots, striker,  team,goalkey, noOfBlueRobot, noOfYellowRobot,(-myGoalkeyPosition));
             GoalkeePlan = new PathPlanner(noofbots, goalkey, team,goalkey, noOfBlueRobot, noOfYellowRobot,(-myGoalkeyPosition));
             
@@ -123,12 +125,26 @@ namespace RoboSoccer
         {
             Strategic.RobotX = blueRobotX[Striker];
             Strategic.RobotY = blueRobotY[Striker];
-            Strategic.Stregedy1();
-            Target_x = Strategic.X[Strategic.i];
-            Target_y = Strategic.Y[Strategic.i];
+            Strategic.BallX = ball_x;
+            Strategic.Bally = ball_y;
+            balldistance = cal.Distances(ball_y, ball_x, blueRobotY[Striker], blueRobotX[Striker]);
+            if (balldistance>100)
+            {
+                Target_x = ball_x;
+                Target_y = ball_y;
+            }
+             else
+            {
+                Strategic.Stregedy1();
+                Target_x = Strategic.X[Strategic.i];
+                Target_y = Strategic.Y[Strategic.i];
 
-            StrikerPlan.targetX = Target_x;
-            StrikerPlan.targetY = Target_y;
+                StrikerPlan.targetX = Target_x;
+                StrikerPlan.targetY = Target_y;
+            }
+            
+           
+
         }
          
            

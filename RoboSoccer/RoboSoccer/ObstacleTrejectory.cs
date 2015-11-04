@@ -19,7 +19,7 @@ namespace RoboSoccer
         Calculation cal;
         public double[] x;
         public double[] y;
-        public const int stepsize = 180;
+        public const int stepsize = 100;
         public double angle;
         public double Totaldistance;
         public int Xstep, Ystep;
@@ -186,7 +186,7 @@ namespace RoboSoccer
             point_targetdistance = 15000;
 
 
-            while (point_targetdistance>400)
+            while (point_targetdistance>200)
             {
                    if (XCC.Count>3000)
                 {
@@ -244,10 +244,10 @@ namespace RoboSoccer
                             P_O_B[i] = cal.Distances(__roboty[i], __robotx[i], (double)YCC.Peek(), (double)XCC.Peek());
                             obstacal_targetdistance = cal.Distances(target_y, target_x, __roboty[i], __robotx[i]);
                         
-                        if (P_O_B[i]<600 && obstacal_targetdistance < point_targetdistance)
+                        if (P_O_B[i]<700 && obstacal_targetdistance < point_targetdistance)
                              {
                             doneBlue[i] = 1;
-                            newPath(500,i, __robotx, __roboty, obstacal_targetdistance, target_x, target_y, (double)XCC.Peek(), (double)YCC.Peek());
+                            newPath(600,i, __robotx, __roboty, obstacal_targetdistance, target_x, target_y, (double)XCC.Peek(), (double)YCC.Peek());
                             angle = cal.Angle(target_y, target_x, (double)YCC.Peek(), (double)XCC.Peek());
                             Xstep = (int)(stepsize * Math.Cos(angle * Math.PI / 180));
                             Ystep = (int)(stepsize * Math.Sin(angle * Math.PI / 180));
@@ -270,10 +270,10 @@ namespace RoboSoccer
                         P_O_Y[i] = cal.Distances(O_roboty[i], O_robotx[i], (double)YCC.Peek(), (double)XCC.Peek());
                         obstacal_targetdistance = cal.Distances(target_y, target_x, O_roboty[i], O_robotx[i]);
 
-                        if (P_O_Y[i] < 600 && obstacal_targetdistance < point_targetdistance)
+                        if (P_O_Y[i] < 700 && obstacal_targetdistance < point_targetdistance)
                         {
                             doneYellow[i] = 1;
-                            newPath(500, i,  O_robotx, O_roboty, obstacal_targetdistance, target_x, target_y, (double)XCC.Peek(), (double)YCC.Peek());
+                            newPath(600, i,  O_robotx, O_roboty, obstacal_targetdistance, target_x, target_y, (double)XCC.Peek(), (double)YCC.Peek());
                             angle = cal.Angle(target_y, target_x, (double)YCC.Peek(), (double)XCC.Peek());
                             Xstep = (int)(stepsize * Math.Cos(angle * Math.PI / 180));
                             Ystep = (int)(stepsize * Math.Sin(angle * Math.PI / 180));

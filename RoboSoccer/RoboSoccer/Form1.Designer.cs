@@ -55,6 +55,7 @@
             this.Strateg1 = new System.Windows.Forms.Button();
             this.Strategy2 = new System.Windows.Forms.Button();
             this.Strategy3 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -102,7 +103,7 @@
             // 
             // timer2
             // 
-            this.timer2.Interval = 20;
+            this.timer2.Interval = 15;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
             // richTextBox3
@@ -182,6 +183,7 @@
             // 
             // timer3
             // 
+            this.timer3.Interval = 600;
             this.timer3.Tick += new System.EventHandler(this.timer3_Tick_1);
             // 
             // richTextBox4
@@ -220,11 +222,22 @@
             this.Strategy3.Text = "Strategy 3";
             this.Strategy3.UseVisualStyleBackColor = true;
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(603, 47);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(115, 23);
+            this.button3.TabIndex = 10;
+            this.button3.Text = "Start Position ";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1268, 694);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.Strategy3);
             this.Controls.Add(this.Strategy2);
             this.Controls.Add(this.Strateg1);
@@ -260,6 +273,7 @@
         private System.Windows.Forms.Button Strateg1;
         private System.Windows.Forms.Button Strategy2;
         private System.Windows.Forms.Button Strategy3;
+        private System.Windows.Forms.Button button3;
     }
 }
 

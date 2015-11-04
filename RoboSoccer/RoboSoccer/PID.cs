@@ -40,8 +40,33 @@ namespace RoboSoccer
 
             Output = (KP * error) + (KI * errorSum )+ (KD * diff);
             Lasterror = error;
-            if (Output >= 40)
-                Output = 40;
+            if (Output >= 50)
+                Output = 50;
+            else if (Output < 0)
+                Output = 0;
+            return Output;
+        }
+        public double PID_Output(double _kp, double _ki, double _kd, double _distance, int _new,int limit)
+
+        {
+            double diff;
+            KP = _kp;
+            KI = _ki;
+            KD = _kd;
+            if (_new == 1)
+            {
+                error = 0;
+                errorSum = 0;
+                diff = 0;
+            }
+            error = _distance;
+            errorSum += error * 0.01;
+            diff = (error - Lasterror) / 0.01;
+
+            Output = (KP * error) + (KI * errorSum) + (KD * diff);
+            Lasterror = error;
+            if (Output >= limit)
+                Output = limit;
             else if (Output < 0)
                 Output = 0;
             return Output;

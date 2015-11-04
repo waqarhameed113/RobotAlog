@@ -132,7 +132,7 @@ namespace RoboSoccer
 
                 newPathComplete = 1;
                 pathcompleteforGraph = 1;
-                Thread.Sleep(100);
+                Thread.Sleep(90);
             }
         }
 

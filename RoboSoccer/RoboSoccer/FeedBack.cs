@@ -18,7 +18,7 @@ namespace RoboSoccer
     public class FeedBack 
     {
         
-        public const int Mybotblue = 0;
+        public const int Mybotblue = 1;
         public  int Striker = 1;
         public  int Goalkee = 0;
         public const int radius =1500;
@@ -36,11 +36,11 @@ namespace RoboSoccer
         public Calculation calc;
           public Control Controller;
         public int goalkeyPositonX=2600;
-        public KalmanFilter kalmanballX,KalmanBally;
+       public KalmanFilter kalmanballX,KalmanBally;
         public KalmanNoiseFilter FilterBlueX0, FilterBlueY0, FilterBlue0Orient, FilterBlueX1, FilterBlueY1, FilterBlue1Orient, FilterYellowX0, FilterYellowY0, FilterYellow0Orient, FilterYellowX1, FilterYellowY1, FilterYellow1Orient;
 
         public int line,a;
-
+            
         public Thread KalmanThread;
         public FeedBack()
         {
@@ -101,7 +101,7 @@ public  void getFeedback()
             Controller.StrikerPlan.PathChanger();
             Controller.GoalkeePlan.PathChanger();
             Controller.update();
-       //   Controller.SetTarget();
+          Controller.SetTarget();
 
 
         }
@@ -134,7 +134,7 @@ public  void getFeedback()
                 ballx = pakt.detection.balls[0].x;
                 bally = pakt.detection.balls[0].y;
 
-             //   Controller.setBall(ballx, bally);
+               Controller.setBall(ballx, bally);
 
             }
             
@@ -146,7 +146,7 @@ public  void getFeedback()
                 BluerobotY[id] = pakt.detection.robots_blue[i].y;
                 BluerobotOrient[id] = pakt.detection.robots_blue[i].orientation * 180 / Math.PI;
 
-                BluerobotOrient[id] = FilterBlue0Orient.K_Noise_Filter(BluerobotOrient[id], 21.5, 50e-2);
+           //     BluerobotOrient[id] = FilterBlue0Orient.K_Noise_Filter(BluerobotOrient[id], 21.5, 50e-1);
              
 
                 //      Bluedistance[id] = calc.Distances(bally, ballx, BluerobotY[id], BluerobotX[id]);
@@ -163,9 +163,9 @@ public  void getFeedback()
 
             }
           BluerobotX[0] = FilterBlueX0.K_Noise_Filter(BluerobotX[0]);
-            BluerobotX[1] = FilterBlueX1.K_Noise_Filter(BluerobotX[1]);
-            BluerobotY[0] = FilterBlueY0.K_Noise_Filter(BluerobotY[0]);
-            BluerobotY[1] = FilterBlueY1.K_Noise_Filter(BluerobotY[1]);
+          BluerobotX[1] = FilterBlueX1.K_Noise_Filter(BluerobotX[1]);
+         BluerobotY[0] = FilterBlueY0.K_Noise_Filter(BluerobotY[0]);
+         BluerobotY[1] = FilterBlueY1.K_Noise_Filter(BluerobotY[1]);
             Controller.setBlueBots(0, BluerobotX[0], BluerobotY[0], BluerobotOrient[0]);
             Controller.setBlueBots(1, BluerobotX[1], BluerobotY[1], BluerobotOrient[1]);
          
@@ -191,7 +191,7 @@ public  void getFeedback()
                 YellowrobotY[id] = pakt.detection.robots_yellow[i].y;
                 YellowrobotOrient[id] = pakt.detection.robots_yellow[i].orientation * 180 / Math.PI;
 
-                YellowrobotOrient[id] = FilterYellow0Orient.K_Noise_Filter(YellowrobotOrient[id], 21.5, 50e-3);
+         //       YellowrobotOrient[id] = FilterYellow0Orient.K_Noise_Filter(YellowrobotOrient[id], 21.5, 50e-1);
               
               
                 
@@ -208,7 +208,7 @@ public  void getFeedback()
             }
             
             YellowrobotX[0] = FilterYellowX0.K_Noise_Filter(YellowrobotX[0]);
-            YellowrobotX[1] = FilterYellowX1.K_Noise_Filter(YellowrobotX[1]);
+          YellowrobotX[1] = FilterYellowX1.K_Noise_Filter(YellowrobotX[1]);
             YellowrobotY[0] = FilterYellowY0.K_Noise_Filter(YellowrobotY[0]);
             YellowrobotY[1] = FilterYellowY1.K_Noise_Filter(YellowrobotY[1]);
            
@@ -229,10 +229,10 @@ public  void getFeedback()
                 else if (ballx < -2000)
                     ballx = -2000;
 
-                if (bally > 1400)
-                    bally = 1400;
-                else if (bally < -1400)
-                    bally = -1400;
+                if (bally > 1200)
+                    bally = 1200;
+                else if (bally < -1200)
+                    bally = -1200;
              
                 Controller.setBall(ballx, bally);
                 Thread.Sleep(10);

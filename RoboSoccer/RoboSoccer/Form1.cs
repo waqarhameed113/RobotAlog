@@ -29,16 +29,16 @@ namespace RoboSoccer
         private void button1_Click(object sender, EventArgs e)
         {
              
-            
+                                                              
             if (timer1.Enabled != true)
             {
                 timer1.Enabled = true;
 
                f1.Controller.StrikerPlan.trejectoryPloting.Start();
                 f1.Controller.GoalkeePlan.trejectoryPloting.Start();
-                f1.KalmanThread.Start();
-                timer3.Enabled = true;
-             
+            //   f1.KalmanThread.Start();
+                timer3.Enabled = false;
+                                        
 
             }
 
@@ -60,22 +60,22 @@ namespace RoboSoccer
            
             richTextBox1.Text = "Ball_X "+((int)f1.ballx).ToString()+"\n";
             richTextBox1.Text += "Ball_Y " + ((int)f1.bally).ToString() + "\n";
-            richTextBox1.Text += "Robot_Id " + f1.BluerobotID[1].ToString()+'\n';
-            richTextBox1.Text += "Robot_X " + ((int)f1.BluerobotX[1]).ToString() + '\n';
-            richTextBox1.Text += "Robot_Y " + ((int)f1.BluerobotY[1]).ToString() + '\n';
-            richTextBox1.Text += "Distance " + ((int)f1.Bluedistance[1]).ToString() + '\n';
-            richTextBox1.Text += "Angle " + ((int)f1.Blueangle[1]).ToString() + '\n';
-            richTextBox1.Text += "Orient " + ((int)f1.Blueorient_Ball[1]).ToString() + '\n';
-            richTextBox4.Text = ((int)f1.BluerobotOrient[1]).ToString() + '\n';
+         //   richTextBox1.Text += "Robot_Id " + f1.BluerobotID[1].ToString()+'\n';
+           // richTextBox1.Text += "Robot_X " + ((int)f1.BluerobotX[1]).ToString() + '\n';
+           /// richTextBox1.Text += "Robot_Y " + ((int)f1.BluerobotY[1]).ToString() + '\n';
+            //richTextBox1.Text += "Distance " + ((int)f1.Bluedistance[1]).ToString() + '\n';
+            //richTextBox1.Text += "Angle " + ((int)f1.Blueangle[1]).ToString() + '\n';
+            //richTextBox1.Text += "Orient " + ((int)f1.Blueorient_Ball[1]).ToString() + '\n';
+           // richTextBox4.Text = ((int)f1.BluerobotOrient[1]).ToString() + '\n';
 
             //    richTextBox2.Text = "Speed,Rotate,Angle,R_Magnitude,garbage\n";
-            richTextBox2.Text = f1.Controller.StrikerPlan.pathFollower.speed.ToString() + ',' + ((int)f1.Blueorient_Goal[f1.Striker]).ToString() + ',' +( (int)f1.Controller.StrikerPlan.pathFollower.angle).ToString() + ",80,0\n"+ f1.line.ToString()+'\n';
-        //   if (f1.Controller.pathFollower.newpathIndication==1)
-          // richTextBox4.Text = "X  "+f1.Controller.pathFollower.X[f1.Controller.pathFollower.i].ToString()+"  Y  " + f1.Controller.pathFollower.Y[f1.Controller.pathFollower.i].ToString() + "\nDistance"+ f1.Controller.pathFollower.TotalDistance.ToString();
-           
+            richTextBox2.Text = f1.Controller.StrikerPlan.pathFollower.speed.ToString() + ',' + ((int)f1.Blueorient_Ball[f1.Striker]).ToString() + ',' + ((int)f1.Controller.StrikerPlan.pathFollower.angle).ToString() + "," + ((int)f1.Controller.StrikerPlan.pathFollower.angularSpeed) + ",0";
+            //   if (f1.Controller.pathFollower.newpathIndication==1)
+            // richTextBox4.Text = "X  "+f1.Controller.pathFollower.X[f1.Controller.pathFollower.i].ToString()+"  Y  " + f1.Controller.pathFollower.Y[f1.Controller.pathFollower.i].ToString() + "\nDistance"+ f1.Controller.pathFollower.TotalDistance.ToString();
 
-              
-     
+
+
+
             timer1.Enabled = true;
 
             
@@ -92,7 +92,7 @@ namespace RoboSoccer
         {
             if (!serialPort1.IsOpen)
             {
-                serialPort1.PortName = "COM3";
+                serialPort1.PortName = "COM5";
                 serialPort1.BaudRate = 115200;
                 serialPort1.Open();
 
@@ -120,7 +120,10 @@ namespace RoboSoccer
 
                 try
                 {
-                    serialPort1.WriteLine(f1.Controller.StrikerPlan.pathFollower.speed.ToString() + ',' + ((int)f1.Blueorient_Goal[f1.Striker]).ToString() + ',' + ((int)f1.Controller.StrikerPlan.pathFollower.angle).ToString() + ",20,0");
+                    if (((int)f1.Blueorient_Ball[f1.Striker]) == 0)
+                      f1.Controller.StrikerPlan.pathFollower.angle = 0;
+
+                    serialPort1.WriteLine(f1.Controller.StrikerPlan.pathFollower.speed.ToString() + ',' + ((int)f1.Blueorient_Ball[f1.Striker]).ToString() + ',' + ((int)f1.Controller.StrikerPlan.pathFollower.angle).ToString() +","+ ((int)f1.Controller.StrikerPlan.pathFollower.angularSpeed)+",0");
                   //  serialPort1.WriteLine(f1.Controller.GoalkeePlan.pathFollower.speed.ToString() + ',' + ((int)f1.Blueorient_Ball[f1.Goalkee]).ToString() + ',' + ((int)f1.Controller.GoalkeePlan.pathFollower.angle).ToString() + ",20,0");
                     //           richTextBox2.Text = f1.speed.ToString() + ',' + ((int)f1.orient[5]).ToString() + ',' + ((int)f1.angle[5]).ToString() + ",60,0";
                 }
@@ -250,7 +253,7 @@ namespace RoboSoccer
             f1.Controller.GoalkeePlan.pathFollower.pathfollower.Abort();
             f1.Controller.StrikerPlan.trejectoryPloting.Abort();
             f1.Controller.GoalkeePlan.trejectoryPloting.Abort();
-            f1.KalmanThread.Abort();
+          // f1.KalmanThread.Abort();
             if (serialPort1.IsOpen)
             {
                 try
@@ -389,6 +392,11 @@ namespace RoboSoccer
         private void Strateg1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            
         }
     }
     }

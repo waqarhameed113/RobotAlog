@@ -43,7 +43,10 @@ namespace RoboSoccer
             else if (_angle > 365 && _angle <545|| _angle>5 && _angle<165)
                 return 1;    // 1 anticlock
             else
-            return 0;
+            
+                return 0;
+            
+            
         }
       
 
