@@ -11,7 +11,7 @@ namespace RoboSoccer
         public double ballx, bally, goalkeyX, goalKeyY, angle;
         public double[] opponentX, opponentY, distance;
         public int index;
-        public int limit = 350;
+        public int limit = 400;
         
         Calculation cal;
 
@@ -29,8 +29,12 @@ namespace RoboSoccer
         {
             angle = cal.Angle(bally, ballx, opponentY[a], opponentX[a]);
             goalKeyY = (goalkeyX - ballx) * Math.Tan(angle*Math.PI/180) +  bally;
-           
 
+            if (goalKeyY > limit)
+                goalKeyY = limit;
+            else if (goalKeyY < (-limit))
+                goalKeyY = -limit;
+            
 
 
 
@@ -46,13 +50,13 @@ namespace RoboSoccer
             }
                 if (distance[0] < 500 || distance[1] < 500)
                 {
-                if (distance[1] < 500)
-                    calculateY(1);
-                else
-                    calculateY(0);
+                    if (distance[1] < 500)
+                        calculateY(1);
+                    else
+                        calculateY(0);
                 }
 
-                 else if (bally > limit)
+                  else  if (bally > limit)
                     goalKeyY = limit;
                 else if (bally < (-limit))
                     goalKeyY = -limit;
@@ -61,11 +65,7 @@ namespace RoboSoccer
             }
            
 
-            /*    if (!( goalKeyY<limit && goalKeyY > -limit))
-                {
-                    goalKeyY = bally;
-                }
-              */
+            
         }
     }
                                                   

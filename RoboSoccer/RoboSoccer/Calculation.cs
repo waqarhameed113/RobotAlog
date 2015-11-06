@@ -34,6 +34,16 @@ namespace RoboSoccer
             return angle;
         }
 
+        public double Angle(double y2, double x2, double y1, double x1,string a)
+        {
+            double angle = 0;
+            angle = Math.Atan2((y2 - y1), (x2 - x1));
+            angle = angle * 180 / Math.PI;
+         //   angle += 360;
+
+            return angle;
+        }
+
         public double orient (double _angle)
         {
            

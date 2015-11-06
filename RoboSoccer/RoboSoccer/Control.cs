@@ -23,8 +23,10 @@ namespace RoboSoccer
         
         public int BluerobotInField;
         public int YellowrobotInField;
-
-        
+        public double angle_ball;
+        public double angledifference;
+        public int kick;
+        public int buttonSetpoint = 0;
         
         
     
@@ -48,7 +50,7 @@ namespace RoboSoccer
             Goalkey = goalkey;
             Blueteam = team;
             goaler = new GoalKee(goalkey,myGoalkeyPosition);
-            Strategic = new strategic();
+            Strategic = new strategic(myGoalkeyPosition );
 
             cal = new Calculation();
             StrikerPlan = new PathPlanner(noofbots, striker,  team,goalkey, noOfBlueRobot, noOfYellowRobot,(-myGoalkeyPosition));
@@ -105,17 +107,22 @@ namespace RoboSoccer
             YellowrobotInField = yellow;
            
         }
-        public void update()
+        public void updateGoalKEE()
         {
             if (Blueteam == 1)
             {
                 goaler.opponentX = yellowRobotX;
                 goaler.opponentY = yellowRobotY;
+                Strategic.Getopponent(yellowRobotX, yellowRobotY);
+               
+                
             }
             else
             {
                 goaler.opponentX = blueRobotX;
                 goaler.opponentY = blueRobotY;
+                Strategic.OpponentX = blueRobotX;
+                Strategic.OpponentY = blueRobotY;
             }
 
             goaler.goalkeeper();
@@ -123,29 +130,85 @@ namespace RoboSoccer
         }
         public void SetTarget()
         {
-            Strategic.RobotX = blueRobotX[Striker];
-            Strategic.RobotY = blueRobotY[Striker];
-            Strategic.BallX = ball_x;
-            Strategic.Bally = ball_y;
-            balldistance = cal.Distances(ball_y, ball_x, blueRobotY[Striker], blueRobotX[Striker]);
-            if (balldistance>100)
+            if (Blueteam == 1)
             {
-                Target_x = ball_x;
-                Target_y = ball_y;
+                Strategic.RobotX = blueRobotX[Striker];
+                Strategic.RobotY = blueRobotY[Striker];
+                Strategic.BallX = ball_x;
+                Strategic.Bally = ball_y;
+                balldistance = cal.Distances(ball_y, ball_x, blueRobotY[Striker], blueRobotX[Striker]);
+                angle_ball = cal.Angle(ball_y, ball_x, blueRobotY[Striker], blueRobotX[Striker], "noofset");
+                if (ball_x < blueRobotX[Striker])
+                {
+                    if (ball_y > blueRobotY[Striker])
+                        angle_ball += 180;
+                    else
+                        angle_ball -= 180;
+
+                }
+                angledifference = angle_ball - blueRobotOrient[Striker];
+
+                if ((balldistance < 150) && ((angledifference < 20 && angledifference > -20)))
+                {
+
+                    kick = 1;
+                    Strategic.Stregedy1();
+                    Target_x = Strategic.X[Strategic.i];
+                    Target_y = Strategic.Y[Strategic.i];
+
+                    StrikerPlan.targetX = Target_x;
+                    StrikerPlan.targetY = Target_y;
+                }
+                else if (buttonSetpoint == 0)
+                {
+                    kick = 0;
+                    StrikerPlan.targetX = ball_x;
+                    StrikerPlan.targetY = ball_y;
+
+                }
+
             }
-             else
+            else
             {
-                Strategic.Stregedy1();
-                Target_x = Strategic.X[Strategic.i];
-                Target_y = Strategic.Y[Strategic.i];
+                Strategic.RobotX = yellowRobotX[Striker];
+                Strategic.RobotY = yellowRobotY[Striker];
+                Strategic.BallX = ball_x;
+                Strategic.Bally = ball_y;
+                balldistance = cal.Distances(ball_y, ball_x, yellowRobotY[Striker], yellowRobotX[Striker]);
+                angle_ball = cal.Angle(ball_y, ball_x, yellowRobotY[Striker], yellowRobotX[Striker], "noofset");
+                if (ball_x < yellowRobotX[Striker])
+                {
+                    if (ball_y > yellowRobotY[Striker])
+                        angle_ball += 180;
+                    else
+                        angle_ball -= 180;
 
-                StrikerPlan.targetX = Target_x;
-                StrikerPlan.targetY = Target_y;
+                }
+                angledifference = angle_ball - yellowRobotOrient[Striker];
+
+                if ((balldistance < 150) && ((angledifference < 20 && angledifference > -20)))
+                {
+
+                    kick = 1;
+                    Strategic.Stregedy1();
+                    Target_x = Strategic.X[Strategic.i];
+                    Target_y = Strategic.Y[Strategic.i];
+
+                    StrikerPlan.targetX = Target_x;
+                    StrikerPlan.targetY = Target_y;
+                }
+                else if (buttonSetpoint == 0)
+                {
+                    kick = 0;
+                    StrikerPlan.targetX = ball_x;
+                    StrikerPlan.targetY = ball_y;
+
+                }
             }
-            
-           
 
-        }
+
+
+            }
          
            
         }

@@ -6,7 +6,19 @@ using System.Threading.Tasks;
 
 namespace RoboSoccer
 {
-    class Skills
+    public class Skills
     {
+        double[] opponentX, opponentY;
+        public Skills()
+        {
+
+        }
+        public void getData(double[] X, double[] Y)
+            {
+            opponentX = X;
+            opponentY = Y;
+
+            }
+
     }
 }

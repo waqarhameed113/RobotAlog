@@ -14,8 +14,9 @@ namespace RoboSoccer
         public double strikerDistance;
         public Stack XCC ;
         public Stack YCC ;
-   //     public Queue Angle;
-   //     public Queue Point_distance;
+        double ballx, bally;
+        //     public Queue Angle;
+        //     public Queue Point_distance;
         Calculation cal;
         public double[] x;
         public double[] y;
@@ -29,6 +30,12 @@ namespace RoboSoccer
         double obstacal_targetdistance;
         public int striker;
         double X, Y;
+
+
+        double targetgoalAngle, AStepX,AStepY;
+        
+
+
         public ObstacleTrejectory()
         {
             Totaldistance = new double();
@@ -103,39 +110,49 @@ namespace RoboSoccer
         public void PathFinding(int team,double target_y, double target_x, double[] __roboty, double[] __robotx, double[] _robotOrient, int _striker ,double[] O_roboty,double[] O_robotx,int robotcount,int goaltarget)
         {
 
-    /*     //   int targetgoalX = goaltarget;
-            double targetgoalAngle = cal.Angle(target_y, target_x, 0, goaltarget)+180;
-            double AStepX = (int)(stepsize * Math.Cos(targetgoalAngle * Math.PI / 180));
-            double AStepY = (int)(stepsize * Math.Sin(targetgoalAngle * Math.PI / 180));
+            //   int targetgoalX = goaltarget;
+            ballx = target_x;
+            bally = target_y;
+             if (goaltarget<0)
+             targetgoalAngle = cal.Angle(target_y, target_x, 0, -goaltarget)+180;
+             else
+                targetgoalAngle = cal.Angle(target_y, target_x, 0, goaltarget) + 180;
+
+            AStepX = (int)(100 * Math.Cos(targetgoalAngle * Math.PI / 180));
+             AStepY = (int)(100 * Math.Sin(targetgoalAngle * Math.PI / 180));
+            /////////////////////////////////////////////////////
+
+           
 
             /////////////////////////////////////////////////////
-            if (target_x > targetgoalAngle && target_y > 0)
+
+            if (target_x > goaltarget && target_y > 0)
             {
                 target_x += AStepX;
                 target_y += AStepY;
                
 
             }
-            else if (targetgoalAngle > target_x && 0 > target_y)
+            else if (goaltarget > target_x && 0 > target_y)
             {
                 target_x -= AStepX;
                 target_y -= AStepY;
               
             }
-            else if (target_x < targetgoalAngle && 0 < target_y)
+            else if (target_x < goaltarget && 0 < target_y)
             {
                 target_x -= AStepX;
                 target_y += AStepY;
                
             }
-            else if (target_x > targetgoalAngle && target_y < 0)
+            else if (target_x > goaltarget && target_y < 0)
             {
                 target_x += AStepX;
                 target_y -= AStepY;
                
             }
 
-      */
+      
 
 
             ///////////////////////////////////////////////////
@@ -289,8 +306,8 @@ namespace RoboSoccer
 
             }
 
-            XCC.Push(target_x);
-            YCC.Push(target_y);
+            XCC.Push(ballx);
+            YCC.Push(bally);
             x = new double[XCC.Count];
             y = new double[YCC.Count];
             for (int i = XCC.Count - 1; i >= 0; i--)

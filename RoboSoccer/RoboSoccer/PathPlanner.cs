@@ -50,7 +50,7 @@ namespace RoboSoccer
 
         public void setBall(double target_x, double target_y)
         {
-            targetX = target_x; targetY = target_y;
+            ballx = target_x; bally = target_y;
         }
 
         public void setBlueBots(int id, double robotX, double robotY, double robotOrient)

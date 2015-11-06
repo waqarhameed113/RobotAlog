@@ -100,25 +100,13 @@ public  void getFeedback()
                 getData();
             Controller.StrikerPlan.PathChanger();
             Controller.GoalkeePlan.PathChanger();
-            Controller.update();
+            Controller.updateGoalKEE();
           Controller.SetTarget();
 
 
         }
      
-                
- 
-
-
-
-
-
-
-
-
-
-
-
+    
         void getData()
         {
             byte[] data = sock.Receive(ref iep);
@@ -126,8 +114,8 @@ public  void getFeedback()
 
             pakt = Serializer.Deserialize<protos.tutorial.messages_robocup_ssl_wrapper.SSL_WrapperPacket>(new System.IO.MemoryStream(data));
             Controller.botsInField(pakt.detection.robots_blue.Count, pakt.detection.robots_yellow.Count);
-           
-           
+            pakt.detection.t_capture = 1;
+           // pakt.detection.camera_id = 0;
             
             if (pakt.detection.balls.Count > 0)
             {
